@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { mockDatabase } from '../../../../backend/src/data/mockDatabase';
+
+const sampleBookings = mockDatabase.bookings;
+---
+
+<BaseLayout
+  title="Customer Portal &amp; Reservations | Shree Chowdeshwari Travels"
+  description="View your active travel reservations, assigned chauffeur contacts, vehicle status, and download trip vouchers."
+>
+  <!-- Header -->
+  <section class="pt-36 pb-16 bg-[#FAF8F5] border-b border-[#E8E2D6] text-left">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+        <div>
+          <span class="text-xs uppercase tracking-[0.25em] font-bold text-[#8C733E] block mb-2">
+            Guest Sanctuary
+          </span>
+          <h1 class="font-serif font-light text-3xl sm:text-5xl text-[#171717]">
+            My Reservations
+          </h1>
+          <p class="text-xs text-[#6B7280] mt-1 font-light">
+            Welcome back, <strong>Dr. Rameshwar Rao</strong>
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input
+            type="text"
+            placeholder="Reference e.g. SCT-2026-891024"
+            class="bg-white text-xs text-[#171717] border border-[#E8E2D6] rounded-full px-4 py-2.5 focus:outline-none focus:border-[#171717] w-60"
+          />
+          <button class="px-4 py-2.5 bg-[#171717] text-white text-xs uppercase font-semibold tracking-wider rounded-full hover:bg-[#2E2E2E]">
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="py-16 sm:py-24 bg-[#FAF8F5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 space-y-12">
+      <!-- Active Trip Feature -->
+      <div class="p-8 sm:p-12 rounded-3xl bg-white border border-[#E8E2D6] shadow-editorial space-y-6">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#2C3E2D]"></span>
+              <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#2C3E2D]">Upcoming Confirmed Journey</span>
+              <span class="text-xs font-mono text-[#6B7280]">&bull; SCT-2026-891024</span>
+            </div>
+            <h2 class="font-serif font-light text-2xl sm:text-3xl text-[#171717]">
+              Royal Mysore &amp; Coorg Coffee Hills Odyssey (4D / 3N)
+            </h2>
+            <div class="flex flex-wrap gap-4 text-xs text-[#6B7280] font-light pt-2">
+              <span>Dates: <strong class="text-[#171717] font-medium">10 Apr 2026 &ndash; 13 Apr 2026</strong></span>
+              <span>&bull;</span>
+              <span>Guests: <strong class="text-[#171717] font-medium">4 Guests (Family)</strong></span>
+              <span>&bull;</span>
+              <span>Chauffeur: <strong class="text-[#8C733E] font-medium">Someshwara 'Soma' Gowda (+91 98450 78120)</strong></span>
+              <span>&bull;</span>
+              <span>Vehicle: <strong class="text-[#171717] font-medium">Innova Crysta (KA-04-MQ-7842)</strong></span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href="/booking-confirmation?ref=SCT-2026-891024&name=Dr.%20Rameshwar%20Rao&tour=Royal%20Mysore%20%26%20Coorg%20Odyssey&date=2026-04-10&guests=4"
+              class="px-6 py-3 rounded-full bg-[#171717] hover:bg-[#2E2E2E] text-white text-xs font-semibold uppercase tracking-wider text-center transition-all shadow-md"
+            >
+              View Voucher
+            </a>
+            <a
+              href="tel:+919845012345"
+              class="px-6 py-3 rounded-full border border-[#E8E2D6] hover:border-[#171717] text-[#171717] text-xs font-semibold uppercase tracking-wider text-center transition-all"
+            >
+              Concierge Desk
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bookings Table -->
+      <div class="rounded-3xl bg-white border border-[#E8E2D6] overflow-hidden shadow-subtle">
+        <div class="p-6 border-b border-[#F6F2EA]">
+          <h3 class="font-serif text-xl text-[#171717]">All Travel Records</h3>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-[#4B5563]">
+            <thead class="bg-[#FAF8F5] text-[#9CA3AF] uppercase tracking-wider text-[10px] border-b border-[#E8E2D6]">
+              <tr>
+                <th class="p-4">Reference</th>
+                <th class="p-4">Journey</th>
+                <th class="p-4">Dates</th>
+                <th class="p-4">Guests</th>
+                <th class="p-4">Amount</th>
+                <th class="p-4">Status</th>
+                <th class="p-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#F6F2EA]">
+              {sampleBookings.map(b => (
+                <tr class="hover:bg-[#FAF8F5] transition-colors">
+                  <td class="p-4 font-mono font-medium text-[#171717]">{b.bookingReference}</td>
+                  <td class="p-4 font-medium text-[#171717]">{b.tourTitle}</td>
+                  <td class="p-4 font-light">{b.travelStartDate} to {b.travelEndDate}</td>
+                  <td class="p-4">{b.guestsCount} Guests</td>
+                  <td class="p-4 font-serif text-sm text-[#171717]">₹{b.netAmount.toLocaleString('en-IN')}</td>
+                  <td class="p-4">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#FAF8F5] border border-[#E8E2D6] text-[#171717]">
+                      {b.status}
+                    </span>
+                  </td>
+                  <td class="p-4 text-right">
+                    <a
+                      href={`/booking-confirmation?ref=${b.bookingReference}&name=${encodeURIComponent(b.customerName)}&tour=${encodeURIComponent(b.tourTitle)}&date=${b.travelStartDate}&guests=${b.guestsCount}`}
+                      class="text-[#8C733E] hover:underline font-semibold"
+                    >
+                      Voucher &rarr;
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

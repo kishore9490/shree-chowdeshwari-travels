@@ -1,0 +1,258 @@
+---
+// First-Class Cabin & Fleet Experience Simulator
+const fleetCabins = [
+  {
+    id: "innova-crysta",
+    name: "Toyota Innova Crysta ZX",
+    tagline: "The Sovereign Captain-Seat Highway Cruiser",
+    badge: "EXECUTIVE FAVORITE",
+    seating: "6+1 Executive Captain Configuration",
+    luggage: "4 Large Suitcases + 2 Cabin Bags",
+    comfortRating: "9.9/10 Highway Soft Glide",
+    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1600&q=85",
+    features: [
+      "Plush Reclining Leather Captain Seats with Armrests",
+      "Independent Triple-Zone Climate Control with Rear Vents",
+      "Complimentary High-Speed Wi-Fi & Multi-Port USB-C Charging",
+      "Chilled Bottled Mineral Water, Wet Towels & Mints",
+      "Speed Governed at 80 km/h with GPS Live Operations Tracking"
+    ],
+    idealFor: "Couples, small families, senior citizens, and luxury business travel"
+  },
+  {
+    id: "force-urbania",
+    name: "Force Urbania Executive Maharaja",
+    tagline: "Private Jet-Lounge On Wheels for Groups",
+    badge: "ULTRA-LUXURY GROUP",
+    seating: "12+1 Individually Reclining Jet Seats",
+    luggage: "12 Suitcases + Overhead Lockers",
+    comfortRating: "10/10 Monocoque Silent Cabin",
+    image: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1600&q=85",
+    features: [
+      "Stand-up 6.5 ft Full Headroom with Panoramic Tinted Glass",
+      "Aviation-Style Reading Spotlights & Ambient Starlight Roof",
+      "Onboard 32-inch 4K Entertainment Screen for Media",
+      "Independent Rear AC blowers per passenger seat",
+      "Spacious center aisle for effortless in-cabin movement"
+    ],
+    idealFor: "Multi-generation family holidays, wedding entourages & corporate retreats"
+  },
+  {
+    id: "fortuner-4x4",
+    name: "Toyota Fortuner 4x4 Highland Conqueror",
+    tagline: "Rugged Sovereign Power for Mountains & Safaris",
+    badge: "MOUNTAIN EXPEDITION",
+    seating: "6+1 Elevated 4x4 Leather Seating",
+    luggage: "4 Large Suitcases + Trekking Gear",
+    comfortRating: "9.8/10 All-Terrain Dominance",
+    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1600&q=85",
+    features: [
+      "High-Clearance 4x4 Drivetrain for Mandalpatti & Mountain Trails",
+      "Premium Perforated Leather Interior with Lumbar Support",
+      "Hill Assist Control & Active Traction for Peak Mountain Safety",
+      "JBL Premium Surround Sound Audio System",
+      "All-Weather Roof Carrier for Heavy Adventure Equipment"
+    ],
+    idealFor: "Western Ghats, Kashmir snow peaks, jungle safaris & offbeat hills"
+  }
+];
+---
+
+<section id="cabin-simulator" class="py-24 sm:py-36 bg-[#0D0D0D] text-white relative overflow-hidden">
+  <!-- Ambient Backdrop -->
+  <div class="absolute top-1/2 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+    <!-- Header -->
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-6">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-8 h-[1px] bg-[#D4AF37]"></span>
+          <span class="text-xs uppercase tracking-[0.25em] font-bold text-[#D4AF37]">
+            First-Class Fleet Experience
+          </span>
+        </div>
+        <h2 class="font-serif font-light text-4xl sm:text-6xl text-white tracking-tight leading-[1.05]">
+          Step Inside Your<br /><span class="font-editorial italic text-[#F3E5AB]">Private Chariot</span>
+        </h2>
+      </div>
+
+      <p class="text-sm text-white/60 font-light max-w-md leading-relaxed">
+        Every vehicle in our fleet is 100% company-owned, rigorously sanitized before every dispatch, and commanded by an English/Kannada-speaking verified master chauffeur.
+      </p>
+    </div>
+
+    <!-- Vehicle Selector Pills -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+      {fleetCabins.map((cabin, idx) => (
+        <button
+          class={`cabin-tab p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer ${idx === 0 ? 'bg-[#1A1A1A] border-amber-500/60 shadow-xl shadow-amber-500/10 ring-1 ring-amber-400/30' : 'bg-white/5 border-white/10 hover:border-white/20'}`}
+          data-cabin-id={cabin.id}
+        >
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-[#D4AF37] font-bold">
+              {cabin.badge}
+            </span>
+            <span class="text-xs font-mono text-emerald-400">
+              {cabin.comfortRating.split(" ")[0]}
+            </span>
+          </div>
+          <h3 class="font-serif text-lg font-medium text-white">{cabin.name}</h3>
+          <p class="text-xs text-white/60 font-light mt-1">{cabin.seating}</p>
+        </button>
+      ))}
+    </div>
+
+    <!-- Display Card for Active Cabin -->
+    <div class="rounded-3xl bg-gradient-to-br from-[#171717] via-[#121212] to-[#0A0A0A] border border-white/15 p-6 sm:p-10 lg:p-12 shadow-2xl relative overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <!-- Left: Image & Specs -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="relative rounded-2xl overflow-hidden aspect-[16/10] bg-black shadow-2xl group">
+            <img
+              id="cabin-display-img"
+              src={fleetCabins[0].image}
+              alt={fleetCabins[0].name}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-black/60 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/15">
+              <span id="cabin-display-luggage" class="text-xs font-mono text-white/80">
+                🧳 {fleetCabins[0].luggage}
+              </span>
+              <span class="text-xs font-mono text-emerald-400">
+                100% OWNED &bull; NO THIRD-PARTY
+              </span>
+            </div>
+          </div>
+
+          <!-- Ambient Mood Switcher for Cabin -->
+          <div class="flex items-center justify-between bg-black/40 p-3 rounded-xl border border-white/10 text-xs">
+            <span class="text-white/60 font-mono text-[11px]">Cabin Lighting Mood:</span>
+            <div class="flex items-center gap-2">
+              <button class="mood-btn px-2.5 py-1 rounded-md bg-amber-500/30 text-amber-300 font-mono text-[10px]" data-mood="DUSK">
+                🌅 Golden Dusk
+              </button>
+              <button class="mood-btn px-2.5 py-1 rounded-md bg-white/10 text-white/70 hover:text-white font-mono text-[10px]" data-mood="STARLIGHT">
+                ✨ Starlight
+              </button>
+              <button class="mood-btn px-2.5 py-1 rounded-md bg-white/10 text-white/70 hover:text-white font-mono text-[10px]" data-mood="DAY">
+                ☀️ Daylight
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Features & Chauffeur Protocol -->
+        <div class="lg:col-span-6 space-y-6">
+          <div>
+            <span id="cabin-display-badge" class="text-[10px] font-mono uppercase tracking-[0.25em] text-[#D4AF37] font-bold block mb-1">
+              {fleetCabins[0].badge}
+            </span>
+            <h3 id="cabin-display-name" class="font-serif font-light text-3xl sm:text-4xl text-white">
+              {fleetCabins[0].name}
+            </h3>
+            <p id="cabin-display-tagline" class="text-sm text-[#F3E5AB] font-light mt-1">
+              {fleetCabins[0].tagline}
+            </p>
+          </div>
+
+          <!-- Features List -->
+          <div class="space-y-2.5 pt-2">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-white/50 block">
+              Cabin Amenities &amp; Safety:
+            </span>
+            <ul id="cabin-display-features" class="space-y-2 text-xs text-white/90">
+              {fleetCabins[0].features.map((feat) => (
+                <li class="flex items-start gap-2.5">
+                  <span class="text-[#D4AF37] text-sm mt-0.5">✦</span>
+                  <span class="font-light">{feat}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Ideal For -->
+          <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 text-xs">
+            <span class="text-[10px] font-mono uppercase tracking-wider text-white/50 block mb-0.5">Recommended For:</span>
+            <p id="cabin-display-ideal" class="text-white/80 font-light">
+              {fleetCabins[0].idealFor}
+            </p>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a
+              href="/fleet"
+              class="px-7 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA771C] text-black font-bold text-xs uppercase tracking-[0.18em] transition-all duration-300 hover:scale-105 shadow-xl"
+            >
+              Explore Full Fleet Specs
+            </a>
+            <a
+              href="/plan-your-trip"
+              class="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold uppercase tracking-[0.18em] transition-all duration-300"
+            >
+              Book This Vehicle
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cabin Simulator Script -->
+<script define:vars={{ fleetCabins }}>
+  const tabs = document.querySelectorAll('.cabin-tab');
+  const imgEl = document.getElementById('cabin-display-img');
+  const luggageEl = document.getElementById('cabin-display-luggage');
+  const badgeEl = document.getElementById('cabin-display-badge');
+  const nameEl = document.getElementById('cabin-display-name');
+  const taglineEl = document.getElementById('cabin-display-tagline');
+  const featuresEl = document.getElementById('cabin-display-features');
+  const idealEl = document.getElementById('cabin-display-ideal');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const cabinId = tab.dataset.cabinId;
+      const cabin = fleetCabins.find(c => c.id === cabinId);
+      if (!cabin) return;
+
+      tabs.forEach((t) => {
+        if (t === tab) {
+          t.className = 'cabin-tab p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer bg-[#1A1A1A] border-amber-500/60 shadow-xl shadow-amber-500/10 ring-1 ring-amber-400/30';
+        } else {
+          t.className = 'cabin-tab p-5 rounded-2xl border text-left transition-all duration-300 cursor-pointer bg-white/5 border-white/10 hover:border-white/20';
+        }
+      });
+
+      if (imgEl) imgEl.src = cabin.image;
+      if (luggageEl) luggageEl.innerHTML = `🧳 ${cabin.luggage}`;
+      if (badgeEl) badgeEl.textContent = cabin.badge;
+      if (nameEl) nameEl.textContent = cabin.name;
+      if (taglineEl) taglineEl.textContent = cabin.tagline;
+      if (idealEl) idealEl.textContent = cabin.idealFor;
+
+      if (featuresEl) {
+        featuresEl.innerHTML = cabin.features.map(f => `
+          <li class="flex items-start gap-2.5">
+            <span class="text-[#D4AF37] text-sm mt-0.5">✦</span>
+            <span class="font-light">${f}</span>
+          </li>
+        `).join('');
+      }
+    });
+  });
+
+  // Mood buttons
+  const moodBtns = document.querySelectorAll('.mood-btn');
+  moodBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      moodBtns.forEach(b => {
+        b.className = 'mood-btn px-2.5 py-1 rounded-md bg-white/10 text-white/70 hover:text-white font-mono text-[10px]';
+      });
+      btn.className = 'mood-btn px-2.5 py-1 rounded-md bg-amber-500/30 text-amber-300 font-mono text-[10px]';
+    });
+  });
+</script>

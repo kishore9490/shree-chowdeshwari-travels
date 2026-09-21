@@ -1,0 +1,81 @@
+---
+// LiveCountdown.astro - Modern 2026 Floating Glass Countdown
+---
+
+<div id="countdown-wrapper" class="w-full max-w-2xl mx-auto my-6 sm:my-8">
+  <!-- Active Countdown Grid -->
+  <div id="countdown-timer" class="grid grid-cols-4 gap-2.5 sm:gap-4 md:gap-6 text-center">
+    <!-- Days -->
+    <div class="group relative flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl sm:rounded-3xl glass-panel hover:border-amber-400/50 hover:bg-[#131C31] transition-all duration-300 hover:scale-105 shadow-xl">
+      <div class="absolute inset-0 bg-gradient-to-b from-amber-400/10 to-transparent rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <span id="cd-days" class="relative font-mono-tech text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-none drop-shadow-md">--</span>
+      <span class="relative mt-1.5 sm:mt-2 text-[9px] sm:text-[11px] font-mono-tech font-bold uppercase tracking-[0.25em] text-amber-400">Days</span>
+    </div>
+
+    <!-- Hours -->
+    <div class="group relative flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl sm:rounded-3xl glass-panel hover:border-amber-400/50 hover:bg-[#131C31] transition-all duration-300 hover:scale-105 shadow-xl">
+      <div class="absolute inset-0 bg-gradient-to-b from-amber-400/10 to-transparent rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <span id="cd-hours" class="relative font-mono-tech text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-none drop-shadow-md">--</span>
+      <span class="relative mt-1.5 sm:mt-2 text-[9px] sm:text-[11px] font-mono-tech font-bold uppercase tracking-[0.25em] text-amber-400">Hours</span>
+    </div>
+
+    <!-- Minutes -->
+    <div class="group relative flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl sm:rounded-3xl glass-panel hover:border-amber-400/50 hover:bg-[#131C31] transition-all duration-300 hover:scale-105 shadow-xl">
+      <div class="absolute inset-0 bg-gradient-to-b from-amber-400/10 to-transparent rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <span id="cd-minutes" class="relative font-mono-tech text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-none drop-shadow-md">--</span>
+      <span class="relative mt-1.5 sm:mt-2 text-[9px] sm:text-[11px] font-mono-tech font-bold uppercase tracking-[0.25em] text-amber-400">Minutes</span>
+    </div>
+
+    <!-- Seconds -->
+    <div class="group relative flex flex-col items-center justify-center p-3 sm:p-5 rounded-2xl sm:rounded-3xl glass-panel hover:border-amber-400/50 hover:bg-[#131C31] transition-all duration-300 hover:scale-105 shadow-xl">
+      <div class="absolute inset-0 bg-gradient-to-b from-amber-400/10 to-transparent rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <span id="cd-seconds" class="relative font-mono-tech text-3xl sm:text-5xl md:text-6xl font-bold text-amber-300 tracking-tight leading-none drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">--</span>
+      <span class="relative mt-1.5 sm:mt-2 text-[9px] sm:text-[11px] font-mono-tech font-bold uppercase tracking-[0.25em] text-amber-400">Seconds</span>
+    </div>
+  </div>
+
+  <!-- Live State Replaced When Target Reached -->
+  <div id="countdown-live" class="hidden text-center py-6 px-8 rounded-3xl glass-gold-panel shadow-[0_0_60px_rgba(245,158,11,0.4)] animate-pulse">
+    <span class="text-xs font-mono-tech uppercase tracking-[0.3em] text-amber-300 font-bold block mb-1">THE WAIT IS OVER</span>
+    <h3 class="font-heading text-4xl sm:text-6xl text-white font-extrabold tracking-wide">WE'RE LIVE.</h3>
+  </div>
+</div>
+
+<script>
+  const launchDate = new Date('2026-09-29T00:00:00');
+
+  const daysEl = document.getElementById('cd-days');
+  const hoursEl = document.getElementById('cd-hours');
+  const minutesEl = document.getElementById('cd-minutes');
+  const secondsEl = document.getElementById('cd-seconds');
+  const timerGrid = document.getElementById('countdown-timer');
+  const liveNotice = document.getElementById('countdown-live');
+
+  function pad(num: number): string {
+    return num.toString().padStart(2, '0');
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = launchDate.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      if (timerGrid) timerGrid.classList.add('hidden');
+      if (liveNotice) liveNotice.classList.remove('hidden');
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    if (daysEl) daysEl.textContent = pad(days);
+    if (hoursEl) hoursEl.textContent = pad(hours);
+    if (minutesEl) minutesEl.textContent = pad(minutes);
+    if (secondsEl) secondsEl.textContent = pad(seconds);
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>

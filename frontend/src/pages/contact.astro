@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact &amp; Concierge Desks | Shree Chowdeshwari Travels"
+  description="Connect with the Shree Chowdeshwari 24/7 Concierge Room in Bangalore and Mysore. Direct WhatsApp and telephone support."
+>
+  <!-- Header -->
+  <section class="pt-36 pb-20 bg-[#FAF8F5] border-b border-[#E8E2D6] text-left">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <span class="text-xs uppercase tracking-[0.25em] font-bold text-[#8C733E] block mb-3">
+        24/7 Travel Concierge
+      </span>
+      <h1 class="font-serif font-light text-4xl sm:text-6xl text-[#171717] tracking-tight leading-[1.05] mb-4">
+        Connect With Our<br /><span class="font-editorial italic">Travel Architects</span>
+      </h1>
+      <p class="text-sm sm:text-base text-[#6B7280] max-w-2xl font-light leading-relaxed">
+        Whether inquiring about a bespoke family holiday, corporate delegation, or private outstation vehicle hire, our team is available 24/7.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Desks & Form -->
+  <section class="py-20 sm:py-28 bg-[#FAF8F5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <!-- Contact Desks -->
+        <div class="lg:col-span-5 space-y-8">
+          <div class="p-8 rounded-3xl bg-white border border-[#E8E2D6] shadow-subtle space-y-4">
+            <span class="text-[10px] uppercase tracking-[0.2em] text-[#8C733E] font-bold block">
+              Bangalore Head Office
+            </span>
+            <h3 class="font-serif text-2xl text-[#171717] font-normal">
+              Main Operations Room
+            </h3>
+            <p class="text-xs text-[#6B7280] font-light leading-relaxed">
+              #142, 2nd Floor, Chowdeshwari Complex, Dr. Rajkumar Road, Rajajinagar, Bangalore - 560010, Karnataka, India
+            </p>
+            <div class="pt-4 border-t border-[#F6F2EA] space-y-2 text-xs">
+              <p>
+                <span class="text-[#9CA3AF] block">24/7 Direct Helpline:</span>
+                <a href="tel:+919845012345" class="text-[#171717] font-medium text-sm hover:text-[#8C733E]">+91 98450 12345 / 94480 98765</a>
+              </p>
+              <p>
+                <span class="text-[#9CA3AF] block">Concierge Email:</span>
+                <a href="mailto:concierge@shreechowdeshwari.com" class="text-[#171717] hover:text-[#8C733E]">concierge@shreechowdeshwari.com</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-white border border-[#E8E2D6] shadow-subtle space-y-2">
+            <span class="text-[10px] uppercase tracking-[0.2em] text-[#8C733E] font-bold block">
+              Mysore Desk
+            </span>
+            <h4 class="font-serif text-xl text-[#171717]">Regional Station Desk</h4>
+            <p class="text-xs text-[#6B7280] font-light">
+              #28, Jhansi Lakshmi Bai Road, Near City Railway Station, Mysore - 570005
+            </p>
+            <p class="text-xs text-[#171717] font-mono pt-1">+91 821 2450899</p>
+          </div>
+        </div>
+
+        <!-- Direct Inquiry Form -->
+        <div class="lg:col-span-7 p-8 sm:p-12 rounded-3xl bg-white border border-[#E8E2D6] shadow-editorial space-y-6">
+          <div>
+            <span class="text-[10px] uppercase tracking-[0.2em] text-[#8C733E] font-bold block mb-1">Send a Message</span>
+            <h2 class="font-serif text-2xl sm:text-3xl text-[#171717] font-normal">How Can We Help You?</h2>
+          </div>
+
+          <form id="contact-form" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Full Name</label>
+                <input
+                  type="text"
+                  name="fullName"
+                  required
+                  placeholder="e.g. Rameshwar Rao"
+                  class="w-full bg-[#FAF8F5] text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+                />
+              </div>
+              <div>
+                <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Phone Number</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  required
+                  placeholder="+91 98450 12345"
+                  class="w-full bg-[#FAF8F5] text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Service Type</label>
+              <select
+                name="serviceType"
+                class="w-full bg-[#FAF8F5] text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+              >
+                <option>Custom Tour Package</option>
+                <option>Chauffeur Driven Outstation Hire</option>
+                <option>Corporate Offsite / Group</option>
+                <option>Pilgrimage Yatra</option>
+                <option>International Holiday</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Message / Requirements</label>
+              <textarea
+                name="message"
+                rows="4"
+                required
+                placeholder="Tell us about your travel dates, passenger count, and destinations..."
+                class="w-full bg-[#FAF8F5] text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              id="contact-submit-btn"
+              class="w-full py-4 rounded-full bg-[#171717] hover:bg-[#2E2E2E] text-white text-xs uppercase tracking-[0.18em] font-semibold transition-all shadow-lg"
+            >
+              Send Message
+            </button>
+
+            <div id="contact-success" class="hidden p-4 rounded-2xl bg-[#FAF8F5] border border-[#2C3E2D] text-xs text-[#2C3E2D] text-center font-medium">
+              ✓ Message delivered to our concierge. We will reach out shortly!
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const cForm = document.getElementById('contact-form') as HTMLFormElement;
+    const cBtn = document.getElementById('contact-submit-btn');
+    const cSuccess = document.getElementById('contact-success');
+
+    if (cForm) {
+      cForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (cBtn) cBtn.textContent = 'Sending...';
+
+        const formData = new FormData(cForm);
+        const payload = {
+          fullName: formData.get('fullName'),
+          phone: formData.get('phone'),
+          destination: formData.get('serviceType'),
+          message: formData.get('message'),
+          source: 'Contact Page'
+        };
+
+        try {
+          await fetch('http://localhost:4000/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } catch {}
+
+        cForm.reset();
+        if (cSuccess) cSuccess.classList.remove('hidden');
+        if (cBtn) cBtn.textContent = 'Message Sent';
+      });
+    }
+  </script>
+</BaseLayout>

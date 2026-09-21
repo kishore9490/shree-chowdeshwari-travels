@@ -1,0 +1,62 @@
+---
+// DestinationCrossfade.astro
+// Premier curiosity rotating destination carousel
+const destinations = [
+  "ROYAL MYSORE & COORG",
+  "GOD'S OWN KERALA",
+  "KASHMIR VALLEY OF HEAVEN",
+  "DIVINE VARANASI & AYODHYA",
+  "MAJESTIC RAJASTHAN",
+  "CHARDHAM HIMALAYAN ODYSSEY",
+  "DUBAI & ARABIAN WONDERS",
+  "SACRED SOUTH TEMPLE TRAILS",
+  "MISTY NILGIRIS & OOTY"
+];
+---
+
+<div class="flex flex-col items-center justify-center my-6 sm:my-8 text-center">
+  <p class="text-[10px] sm:text-xs font-sans font-semibold tracking-[0.25em] uppercase text-[#94A3B8] mb-2 sm:mb-3 flex items-center gap-2">
+    <span class="w-4 h-[1px] bg-[#D4AF37]/50"></span>
+    <span>Where will your next blessed story take you?</span>
+    <span class="w-4 h-[1px] bg-[#D4AF37]/50"></span>
+  </p>
+
+  <div class="relative h-9 sm:h-12 flex items-center justify-center overflow-hidden">
+    <div
+      id="destination-rotator"
+      class="font-cinzel text-lg sm:text-2xl md:text-3xl font-bold tracking-[0.25em] sm:tracking-[0.3em] text-[#F3E5AB] transition-all duration-1000 ease-in-out opacity-100 transform translate-y-0 filter drop-shadow-[0_2px_12px_rgba(212,175,55,0.3)]"
+    >
+      {destinations[0]}
+    </div>
+  </div>
+
+  <div class="mt-2 flex items-center gap-1.5 opacity-70">
+    <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse"></span>
+    <span class="w-10 h-[1px] bg-gradient-to-r from-[#D4AF37] to-transparent"></span>
+  </div>
+</div>
+
+<script define:vars={{ destinations }}>
+  const rotator = document.getElementById('destination-rotator');
+  let currentIndex = 0;
+
+  function cycleDestination() {
+    if (!rotator) return;
+    
+    rotator.style.opacity = '0';
+    rotator.style.transform = 'translateY(-10px)';
+
+    setTimeout(() => {
+      currentIndex = (currentIndex + 1) % destinations.length;
+      rotator.textContent = destinations[currentIndex];
+      rotator.style.transform = 'translateY(10px)';
+
+      requestAnimationFrame(() => {
+        rotator.style.opacity = '1';
+        rotator.style.transform = 'translateY(0px)';
+      });
+    }, 700);
+  }
+
+  setInterval(cycleDestination, 3200);
+</script>

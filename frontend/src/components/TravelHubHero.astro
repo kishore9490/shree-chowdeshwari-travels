@@ -1,0 +1,357 @@
+---
+// World-Class Cinematic Travel Hero for Shree Chowdeshwari Tours & Travels
+const quickDestinations = [
+  {
+    name: "Mysore Palace & Srirangapatna",
+    days: "1-2 Days",
+    fare: "₹2,499",
+    tag: "POPULAR",
+    image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=600&q=80",
+    slug: "mysore-srirangapatna"
+  },
+  {
+    name: "Coorg Coffee Highlands",
+    days: "3 Days / 2 Nights",
+    fare: "₹4,299",
+    tag: "WEEKEND SPECIAL",
+    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=600&q=80",
+    slug: "coorg-kodagu"
+  },
+  {
+    name: "Ooty & Nilgiris Mountain Train",
+    days: "3 Days / 2 Nights",
+    fare: "₹4,899",
+    tag: "HILL STATION",
+    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80",
+    slug: "ooty-nilgiris"
+  },
+  {
+    name: "Kerala Backwaters & Munnar",
+    days: "5 Days / 4 Nights",
+    fare: "₹12,499",
+    tag: "BESTSELLER",
+    image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=600&q=80",
+    slug: "kerala-backwaters"
+  }
+];
+---
+
+<section class="relative pt-24 sm:pt-28 pb-16 px-4 sm:px-8 lg:px-12 bg-[#0F172A] text-white overflow-hidden">
+  <!-- Cinematic Full-Bleed Travel Photo Background with Modern Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=2400&q=85"
+      alt="Scenic Karnataka Travel"
+      class="w-full h-full object-cover object-center transform scale-105 opacity-40 will-change-transform"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/80 to-[#0F172A]/60"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#3B82F6_1px,transparent_1px)] [background-size:32px_32px] opacity-15"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10 space-y-8">
+    <!-- Top Headline & Live Trust Pill -->
+    <div class="text-center max-w-3xl mx-auto space-y-4">
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-md">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+        <span class="text-xs font-bold text-amber-300 uppercase tracking-wider">
+          Bangalore's #1 Rated Tours &amp; Travels
+        </span>
+        <span class="text-white/30">|</span>
+        <span class="text-xs font-semibold text-white/90">100% Own Fleet &bull; 4.9★ (15,000+ Trips)</span>
+      </div>
+
+      <h1 class="font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] drop-shadow-md">
+        Explore Karnataka &amp; India with <br />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-200">
+          Bangalore's Premier Fleet
+        </span>
+      </h1>
+
+      <p class="text-sm sm:text-base text-slate-200 max-w-2xl mx-auto font-normal leading-relaxed">
+        Handcrafted Holiday Packages, Verified Outstation Cabs &amp; Luxury Chauffeur Rentals across South India, Himalayas &amp; International Circuits.
+      </p>
+    </div>
+
+    <!-- Elevated Floating World-Class Search Pod -->
+    <div class="max-w-5xl mx-auto bg-white rounded-3xl border border-slate-200/80 shadow-2xl p-4 sm:p-6 text-slate-900 space-y-5">
+      <!-- Service Navigation Tabs -->
+      <div class="flex flex-wrap items-center gap-2 border-b border-slate-100 pb-3" id="hero-service-tabs">
+        <button
+          class="hero-tab-btn active px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all bg-blue-600 text-white shadow-md shadow-blue-500/25 cursor-pointer"
+          data-tab="tours"
+        >
+          <span>🌴</span>
+          <span>Holiday Tour Packages</span>
+        </button>
+
+        <button
+          class="hero-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+          data-tab="cabs"
+        >
+          <span>🚖</span>
+          <span>Outstation Cabs</span>
+        </button>
+
+        <button
+          class="hero-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+          data-tab="airport"
+        >
+          <span>✈️</span>
+          <span>Airport Taxi (BLR)</span>
+        </button>
+
+        <button
+          class="hero-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+          data-tab="bus"
+        >
+          <span>🚌</span>
+          <span>Force Urbania &amp; Buses</span>
+        </button>
+      </div>
+
+      <!-- TAB 1: HOLIDAY TOUR PACKAGES FORM -->
+      <div id="tab-content-tours" class="tab-panel block">
+        <form action="/tours" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3.5 items-center">
+          <div class="lg:col-span-4 p-3.5 bg-slate-50 hover:bg-blue-50/50 rounded-2xl border border-slate-200/90 focus-within:border-blue-500 transition-colors">
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+              <span>📍</span> Choose Holiday Destination
+            </label>
+            <select name="destination" class="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none cursor-pointer">
+              <option value="">All Trending Circuits</option>
+              <option value="mysore-srirangapatna">👑 Mysore &amp; Royal Palaces (3D/2N)</option>
+              <option value="coorg-kodagu">☕ Coorg Coffee Country &amp; 4x4 (3D/2N)</option>
+              <option value="ooty-nilgiris">🚂 Ooty &amp; Nilgiris Toy Train (4D/3N)</option>
+              <option value="chikmagalur">🏔️ Chikmagalur &amp; Mullayanagiri (3D/2N)</option>
+              <option value="kerala-backwaters">🌴 Kerala Munnar &amp; Houseboat (5D/4N)</option>
+              <option value="kashmir-paradise">❄️ Kashmir Crown &amp; Gulmarg (6D/5N)</option>
+              <option value="hampi-badami">🏛️ Hampi &amp; Badami UNESCO Caves (4D/3N)</option>
+              <option value="dubai-abu-dhabi">✨ Dubai &amp; Abu Dhabi Wonders (5D/4N)</option>
+            </select>
+          </div>
+
+          <div class="lg:col-span-3 p-3.5 bg-slate-50 hover:bg-blue-50/50 rounded-2xl border border-slate-200/90 focus-within:border-blue-500 transition-colors">
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+              <span>📅</span> Travel Date
+            </label>
+            <input type="date" name="date" class="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none cursor-pointer" />
+          </div>
+
+          <div class="lg:col-span-3 p-3.5 bg-slate-50 hover:bg-blue-50/50 rounded-2xl border border-slate-200/90 focus-within:border-blue-500 transition-colors">
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+              <span>👥</span> Guests &bull; Vehicle
+            </label>
+            <select name="guests" class="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none cursor-pointer">
+              <option value="2">2 Adults (Sedan / SUV)</option>
+              <option value="4">4 Adults (Innova Crysta)</option>
+              <option value="6">6 Adults (Innova Crysta ZX)</option>
+              <option value="12">10-12 Adults (Force Urbania)</option>
+            </select>
+          </div>
+
+          <div class="lg:col-span-2">
+            <button
+              type="submit"
+              class="w-full py-4 px-5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold uppercase tracking-wider text-xs shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all flex items-center justify-center gap-2 min-h-[56px] active:scale-95"
+            >
+              <span>Search Tours</span>
+              <span>→</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- TAB 2: OUTSTATION CABS -->
+      <div id="tab-content-cabs" class="tab-panel hidden">
+        <form action="/plan-your-trip" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3.5 items-center">
+          <div class="lg:col-span-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90">
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+              <span>📍</span> From (Pickup City)
+            </label>
+            <input type="text" name="from" value="Bangalore" class="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none" />
+          </div>
+
+          <div class="lg:col-span-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90">
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+              <span>🏁</span> To (Destination City)
+            </label>
+            <input type="text" name="to" placeholder="e.g. Mysore, Coorg, Ooty, Tirupati" class="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none" />
+          </div>
+
+          <div class="lg:col-span-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90">
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
+              <span>🚗</span> Vehicle Preference
+            </label>
+            <select name="vehicle" class="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none cursor-pointer">
+              <option value="innova">Toyota Innova Crysta ZX (6+1)</option>
+              <option value="urbania">Force Urbania Maharaja (12+1)</option>
+              <option value="fortuner">Toyota Fortuner 4x4 (6+1)</option>
+              <option value="tempo">Tempo Traveller (14-17 Seater)</option>
+              <option value="dzire">Swift Dzire / Etios (4+1)</option>
+            </select>
+          </div>
+
+          <div class="lg:col-span-3">
+            <button
+              type="submit"
+              class="w-full py-4 px-5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold uppercase tracking-wider text-xs shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2 min-h-[56px] active:scale-95"
+            >
+              <span>Instant Cab Quote</span>
+              <span>→</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- TAB 3: AIRPORT TAXI -->
+      <div id="tab-content-airport" class="tab-panel hidden">
+        <form action="/plan-your-trip" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3.5 items-center">
+          <div class="lg:col-span-4 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90">
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+              Airport Service
+            </label>
+            <select name="airport_service" class="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none cursor-pointer">
+              <option value="pickup">✈️ BLR Kempegowda Airport Pickup ➔ City</option>
+              <option value="drop">🏙️ City ➔ BLR Kempegowda Airport Drop</option>
+              <option value="outstation">🛣️ Direct BLR Airport ➔ Mysore / Coorg / Ooty</option>
+            </select>
+          </div>
+
+          <div class="lg:col-span-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90">
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+              Flight / Pickup Time
+            </label>
+            <input type="datetime-local" name="flight_time" class="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none cursor-pointer" />
+          </div>
+
+          <div class="lg:col-span-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90">
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+              Vehicle Class
+            </label>
+            <select name="vehicle" class="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none cursor-pointer">
+              <option value="innova">Innova Crysta ZX (Executive VIP)</option>
+              <option value="sedan">Sedan (Dzire / Etios)</option>
+              <option value="urbania">Force Urbania (Group Arrival)</option>
+            </select>
+          </div>
+
+          <div class="lg:col-span-2">
+            <button
+              type="submit"
+              class="w-full py-4 px-5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold uppercase tracking-wider text-xs shadow-lg transition-all flex items-center justify-center gap-2 min-h-[56px] active:scale-95"
+            >
+              <span>Book Taxi</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- TAB 4: GROUP BUS & URBANIA -->
+      <div id="tab-content-bus" class="tab-panel hidden">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-3 bg-slate-50 rounded-2xl border border-slate-200/90">
+          <div>
+            <h4 class="font-bold text-slate-900 text-sm">Force Urbania (12/17 Seater) &amp; Luxury Volvo Bus Rentals</h4>
+            <p class="text-xs text-slate-600 mt-0.5">Air-suspended luxury seating, dual AC blowers, entertainment screens for corporate events &amp; family weddings.</p>
+          </div>
+          <a
+            href="/fleet"
+            class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider whitespace-nowrap shadow-md transition-transform"
+          >
+            Explore Group Fleet →
+          </a>
+        </div>
+      </div>
+
+      <!-- Value Trust Badges Bar -->
+      <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs font-semibold text-slate-600">
+        <div class="flex items-center gap-1.5">
+          <span class="text-emerald-600 font-bold">✓</span>
+          <span>100% Company-Owned Fleet (Zero Broker Subcontracting)</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-emerald-600 font-bold">✓</span>
+          <span>Pay Only 25% Token Advance to Confirm</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-emerald-600 font-bold">✓</span>
+          <span>Zero Surge Guarantee &bull; Tolls &amp; Fuel Included</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Visual Destination Cards (Rich Photography) -->
+    <div class="space-y-3 pt-4">
+      <div class="flex items-center justify-between text-white">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+          <span>🔥</span> Popular Weekend Getaways from Bangalore:
+        </span>
+        <a href="/tours" class="text-xs font-bold text-amber-300 hover:text-amber-200 transition-colors">
+          Explore All 20+ Tours &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {quickDestinations.map(dest => (
+          <a
+            href={`/destinations/${dest.slug}`}
+            class="group relative rounded-2xl overflow-hidden aspect-[16/10] bg-slate-800 border border-white/15 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+          >
+            <img
+              src={dest.image}
+              alt={dest.name}
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
+            <div class="absolute top-3 left-3">
+              <span class="text-[9px] font-bold uppercase tracking-wider bg-blue-600 text-white px-2.5 py-0.5 rounded-md shadow">
+                {dest.tag}
+              </span>
+            </div>
+
+            <div class="absolute bottom-3 left-3 right-3 flex justify-between items-end">
+              <div>
+                <span class="text-[10px] font-medium text-amber-300 block">{dest.days}</span>
+                <h4 class="font-bold text-sm text-white leading-tight group-hover:text-amber-300 transition-colors line-clamp-1">
+                  {dest.name}
+                </h4>
+              </div>
+              <div class="text-right">
+                <span class="text-[9px] text-slate-300 block">From</span>
+                <span class="font-extrabold text-white text-sm">{dest.fare}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tabs Script -->
+<script>
+  const tabBtns = document.querySelectorAll('.hero-tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const tabId = target.dataset.tab;
+
+      tabBtns.forEach((b) => {
+        b.className = 'hero-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer';
+      });
+
+      target.className = 'hero-tab-btn active px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all bg-blue-600 text-white shadow-md shadow-blue-500/25 cursor-pointer';
+
+      tabPanels.forEach((panel) => {
+        if (panel.id === `tab-content-${tabId}`) {
+          panel.classList.remove('hidden');
+          panel.classList.add('block');
+        } else {
+          panel.classList.remove('block');
+          panel.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

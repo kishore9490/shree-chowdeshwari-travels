@@ -1,0 +1,30 @@
+{
+  "name": "shree-chowdeshwari-travels",
+  "version": "1.0.0",
+  "description": "Production Tours & Travels Web Application & Operations Platform for Shree Chowdeshwari Tours and Travels",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev:frontend",
+    "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:seed": "ts-node prisma/seed.ts"
+  },
+  "keywords": [
+    "tours-and-travels",
+    "karnataka-tourism",
+    "shree-chowdeshwari",
+    "fleet-management",
+    "trip-operations",
+    "crm",
+    "astro",
+    "nodejs",
+    "prisma",
+    "mysql"
+  ],
+  "author": "Shree Chowdeshwari Tours and Travels",
+  "license": "UNLICENSED"
+}

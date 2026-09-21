@@ -1,0 +1,919 @@
+// Prisma Schema for Shree Chowdeshwari Tours and Travels
+// Dedicated production-grade schema covering Public Portal, Customer Dashboard,
+// CRM & Leads, Bookings, Fleet, Drivers, Trip Operations, Maintenance, Expenses & SEO
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ==========================================
+// 1. AUTHENTICATION, USERS & ROLES
+// ==========================================
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  OPERATIONS_MANAGER
+  FLEET_MANAGER
+  MARKETING_MANAGER
+  SALES_AGENT
+  DRIVER
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+model User {
+  id              String       @id @default(uuid())
+  email           String       @unique
+  passwordHash    String
+  fullName        String
+  phone           String?      @unique
+  role            UserRole     @default(SALES_AGENT)
+  status          UserStatus   @default(ACTIVE)
+  avatarUrl       String?
+  lastLoginAt     DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  assignedLeads   Lead[]       @relation("AssignedStaffLeads")
+  assignedTrips   Trip[]       @relation("AssignedOperatorTrips")
+  driverProfile   Driver?
+  auditLogs       AuditLog[]
+  createdOffers   Offer[]
+
+  @@index([email])
+  @@index([role])
+  @@index([status])
+}
+
+model Customer {
+  id                String            @id @default(uuid())
+  email             String            @unique
+  passwordHash      String
+  fullName          String
+  phone             String            @unique
+  dateOfBirth       DateTime?
+  avatarUrl         String?
+  emergencyContact  String?
+  travelPreferences String?           @db.Text
+  isVerified        Boolean           @default(false)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  addresses         CustomerAddress[]
+  bookings          Booking[]
+  enquiries         Enquiry[]
+  leads             Lead[]
+  wishlists         Wishlist[]
+
+  @@index([email])
+  @@index([phone])
+}
+
+model CustomerAddress {
+  id          String   @id @default(uuid())
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  addressLine String
+  city        String
+  state       String
+  pincode     String
+  country     String   @default("India")
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([customerId])
+}
+
+// ==========================================
+// 2. CATALOG: DESTINATIONS & TOURS
+// ==========================================
+
+enum TourType {
+  FAMILY
+  HONEYMOON
+  ADVENTURE
+  LUXURY
+  PILGRIMAGE
+  CORPORATE
+  GROUP
+  WEEKEND
+  INTERNATIONAL
+  CUSTOM
+}
+
+model Destination {
+  id              String             @id @default(uuid())
+  name            String
+  slug            String             @unique
+  tagline         String
+  description     String             @db.Text
+  heroImage       String
+  stateOrCountry  String
+  highlights      String             @db.Text // JSON string array
+  bestTimeToVisit String
+  travelTips      String?            @db.Text
+  isFeatured      Boolean            @default(false)
+  isActive        Boolean            @default(true)
+  seoTitle        String?
+  seoDescription  String?            @db.Text
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  images          DestinationImage[]
+  tours           Tour[]
+
+  @@index([slug])
+  @@index([isFeatured])
+  @@index([isActive])
+}
+
+model DestinationImage {
+  id            String      @id @default(uuid())
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  imageUrl      String
+  caption       String?
+  sortOrder     Int         @default(0)
+
+  @@index([destinationId])
+}
+
+model Tour {
+  id                 String           @id @default(uuid())
+  tourCode           String           @unique // e.g. SCT-TOUR-KSH-01
+  title              String
+  slug               String           @unique
+  destinationId      String
+  destination        Destination      @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  tourType           TourType         @default(FAMILY)
+  durationDays       Int
+  durationNights     Int
+  startingPrice      Decimal          @db.Decimal(10, 2)
+  originalPrice      Decimal?         @db.Decimal(10, 2)
+  maxTravellers      Int              @default(12)
+  badge              String?          // e.g. "Signature Expedition", "Best Seller"
+  overview           String           @db.Text
+  termsAndConditions String?          @db.Text
+  cancellationPolicy String?          @db.Text
+  heroImage          String
+  isFeatured         Boolean          @default(false)
+  isActive           Boolean          @default(true)
+  seoTitle           String?
+  seoDescription     String?          @db.Text
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+
+  images             TourImage[]
+  itineraries        TourItinerary[]
+  inclusions         TourInclusion[]
+  exclusions         TourExclusion[]
+  bookings           Booking[]
+  wishlists          Wishlist[]
+  enquiries          Enquiry[]
+  trips              Trip[]
+
+  @@index([slug])
+  @@index([destinationId])
+  @@index([tourType])
+  @@index([isFeatured])
+  @@index([isActive])
+}
+
+model TourImage {
+  id        String   @id @default(uuid())
+  tourId    String
+  tour      Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  imageUrl  String
+  caption   String?
+  sortOrder Int      @default(0)
+
+  @@index([tourId])
+}
+
+model TourItinerary {
+  id          String   @id @default(uuid())
+  tourId      String
+  tour        Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  dayNumber   Int
+  title       String
+  description String   @db.Text
+  stayDetails String?
+  meals       String?  // e.g. "Breakfast, Dinner"
+  activities  String?  @db.Text // JSON string array
+  sortOrder   Int      @default(0)
+
+  @@index([tourId])
+  @@index([dayNumber])
+}
+
+model TourInclusion {
+  id          String   @id @default(uuid())
+  tourId      String
+  tour        Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  item        String
+  sortOrder   Int      @default(0)
+
+  @@index([tourId])
+}
+
+model TourExclusion {
+  id          String   @id @default(uuid())
+  tourId      String
+  tour        Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  item        String
+  sortOrder   Int      @default(0)
+
+  @@index([tourId])
+}
+
+model Wishlist {
+  id         String   @id @default(uuid())
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  tourId     String
+  tour       Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([customerId, tourId])
+  @@index([customerId])
+  @@index([tourId])
+}
+
+// ==========================================
+// 3. PROMOTIONS & OFFERS
+// ==========================================
+
+model Offer {
+  id            String    @id @default(uuid())
+  code          String    @unique // e.g. FESTIVE2026
+  title         String
+  description   String?
+  discountType  String    // PERCENTAGE or FLAT
+  discountValue Decimal   @db.Decimal(10, 2)
+  minBookingVal Decimal?  @db.Decimal(10, 2)
+  maxDiscount   Decimal?  @db.Decimal(10, 2)
+  validFrom     DateTime
+  validUntil    DateTime
+  usageLimit    Int?
+  usageCount    Int       @default(0)
+  isActive      Boolean   @default(true)
+  createdById   String?
+  createdBy     User?     @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  bookings      Booking[]
+
+  @@index([code])
+  @@index([isActive])
+}
+
+// ==========================================
+// 4. CRM, ENQUIRIES & SALES LEADS
+// ==========================================
+
+enum EnquiryType {
+  GENERAL
+  TOUR_SPECIFIC
+  CUSTOM_TRIP
+  GROUP_BOOKING
+  CORPORATE
+  VEHICLE_RENTAL
+  OTHER
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  CONVERTED_TO_LEAD
+  CONVERTED_TO_BOOKING
+  CLOSED
+}
+
+model Enquiry {
+  id              String         @id @default(uuid())
+  enquiryType     EnquiryType    @default(GENERAL)
+  fullName        String
+  email           String
+  phone           String
+  destinationName String?
+  tourId          String?
+  tour            Tour?          @relation(fields: [tourId], references: [id], onDelete: SetNull)
+  customerId      String?
+  customer        Customer?      @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  travelDate      DateTime?
+  travellersCount Int?
+  message         String         @db.Text
+  status          EnquiryStatus  @default(NEW)
+  source          String?        @default("WEBSITE")
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  lead            Lead?
+
+  @@index([email])
+  @@index([phone])
+  @@index([status])
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  QUOTATION
+  NEGOTIATION
+  WON
+  LOST
+}
+
+model Lead {
+  id              String         @id @default(uuid())
+  leadCode        String         @unique // e.g. SCT-LD-2026-001
+  customerId      String?
+  customer        Customer?      @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  enquiryId       String?        @unique
+  enquiry         Enquiry?       @relation(fields: [enquiryId], references: [id], onDelete: SetNull)
+  fullName        String
+  email           String
+  phone           String
+  destination     String?
+  tourTitle       String?
+  travelDate      DateTime?
+  travellersCount Int            @default(2)
+  estimatedBudget Decimal?       @db.Decimal(10, 2)
+  status          LeadStatus     @default(NEW)
+  source          String         @default("ORGANIC") // GOOGLE, INSTAGRAM, WHATSAPP, RCS, REFERRAL
+  campaignId      String?
+  campaign        Campaign?      @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  assignedStaffId String?
+  assignedStaff   User?          @relation("AssignedStaffLeads", fields: [assignedStaffId], references: [id], onDelete: SetNull)
+  nextFollowUp    DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  notes           LeadNote[]
+  followups       LeadFollowup[]
+  convertedBooking Booking?
+
+  @@index([status])
+  @@index([assignedStaffId])
+  @@index([phone])
+  @@index([email])
+}
+
+model LeadNote {
+  id        String   @id @default(uuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  authorName String
+  noteText  String   @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([leadId])
+}
+
+model LeadFollowup {
+  id           String    @id @default(uuid())
+  leadId       String
+  lead         Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  scheduledFor DateTime
+  purpose      String
+  isCompleted  Boolean   @default(false)
+  completedAt  DateTime?
+  createdAt    DateTime  @default(now())
+
+  @@index([leadId])
+  @@index([scheduledFor])
+}
+
+// ==========================================
+// 5. BOOKING, PASSENGERS & PAYMENTS
+// ==========================================
+
+enum BookingStatus {
+  NEW
+  CONTACTED
+  QUOTATION_SENT
+  PAYMENT_PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PARTIAL
+  PAID
+  REFUNDED
+  FAILED
+}
+
+model Booking {
+  id                 String                 @id @default(uuid())
+  bookingReference   String                 @unique // e.g. SCT-2026-000001
+  customerId         String
+  customer           Customer               @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  tourId             String
+  tour               Tour                   @relation(fields: [tourId], references: [id], onDelete: Restrict)
+  leadId             String?                @unique
+  lead               Lead?                  @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  offerId            String?
+  offer              Offer?                 @relation(fields: [offerId], references: [id], onDelete: SetNull)
+  
+  travelStartDate    DateTime
+  travelEndDate      DateTime
+  guestsCount        Int                    @default(2)
+  pickupAddress      String?                @db.Text
+  dropAddress        String?                @db.Text
+  specialRequests    String?                @db.Text
+  
+  grossAmount        Decimal                @db.Decimal(10, 2)
+  discountAmount     Decimal                @default(0.00) @db.Decimal(10, 2)
+  taxAmount          Decimal                @default(0.00) @db.Decimal(10, 2)
+  netAmount          Decimal                @db.Decimal(10, 2)
+  paidAmount         Decimal                @default(0.00) @db.Decimal(10, 2)
+  
+  status             BookingStatus          @default(NEW)
+  paymentStatus      PaymentStatus          @default(PENDING)
+  createdAt          DateTime               @default(now())
+  updatedAt          DateTime               @updatedAt
+
+  passengers         BookingPassenger[]
+  statusHistory      BookingStatusHistory[]
+  payments           Payment[]
+  trips              Trip[]
+
+  @@index([bookingReference])
+  @@index([customerId])
+  @@index([tourId])
+  @@index([status])
+  @@index([travelStartDate])
+}
+
+model BookingPassenger {
+  id                  String   @id @default(uuid())
+  bookingId           String
+  booking             Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  fullName            String
+  age                 Int
+  gender              String   // MALE, FEMALE, OTHER
+  phone               String?
+  email               String?
+  idType              String?  // AADHAAR, PASSPORT, VOTER_ID, DRIVING_LICENSE
+  idReference         String?
+  dietaryOrRequests   String?
+  isLeadPassenger     Boolean  @default(false)
+
+  @@index([bookingId])
+}
+
+model BookingStatusHistory {
+  id         String        @id @default(uuid())
+  bookingId  String
+  booking    Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  oldStatus  BookingStatus?
+  newStatus  BookingStatus
+  changedBy  String        // Staff Name or "CUSTOMER" or "SYSTEM"
+  changeNote String?       @db.Text
+  createdAt  DateTime      @default(now())
+
+  @@index([bookingId])
+}
+
+model Payment {
+  id             String        @id @default(uuid())
+  bookingId      String
+  booking        Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  transactionRef String        @unique // e.g. pay_XXXX from Razorpay / Bank Ref
+  amount         Decimal       @db.Decimal(10, 2)
+  currency       String        @default("INR")
+  paymentMethod  String        // RAZORPAY, UPI, NET_BANKING, CASH, CARD, BANK_TRANSFER
+  paymentStatus  PaymentStatus @default(PENDING)
+  notes          String?
+  paidAt         DateTime?
+  createdAt      DateTime      @default(now())
+
+  @@index([bookingId])
+  @@index([transactionRef])
+}
+
+// ==========================================
+// 6. FLEET & DRIVER MANAGEMENT
+// ==========================================
+
+enum DriverStatus {
+  AVAILABLE
+  ASSIGNED
+  ON_TRIP
+  ON_LEAVE
+  INACTIVE
+}
+
+model Driver {
+  id               String           @id @default(uuid())
+  driverCode       String           @unique // e.g. SCT-DRV-001
+  userId           String?          @unique
+  user             User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  fullName         String
+  photoUrl         String?
+  mobile           String           @unique
+  alternateMobile  String?
+  address          String?          @db.Text
+  dateOfJoining    DateTime
+  experienceYears  Int              @default(5)
+  licenseNumber    String           @unique
+  licenseType      String           // LMV, HMV, COMMERCIAL
+  licenseExpiry    DateTime
+  emergencyContact String?
+  status           DriverStatus     @default(AVAILABLE)
+  notes            String?          @db.Text
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  documents        DriverDocument[]
+  assignedVehicles VehicleAssignment[]
+  trips            Trip[]
+
+  @@index([driverCode])
+  @@index([status])
+  @@index([licenseExpiry])
+}
+
+model DriverDocument {
+  id             String    @id @default(uuid())
+  driverId       String
+  driver         Driver    @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  documentType   String    // DRIVING_LICENSE, AADHAAR, PAN, MEDICAL_CERTIFICATE, POLICE_VERIFICATION
+  documentNumber String
+  issueDate      DateTime?
+  expiryDate     DateTime?
+  fileUrl        String?
+  status         String    @default("VALID") // VALID, EXPIRING_SOON, EXPIRED
+  createdAt      DateTime  @default(now())
+
+  @@index([driverId])
+  @@index([expiryDate])
+}
+
+enum VehicleType {
+  SEDAN
+  SUV
+  MUV
+  TEMPO_TRAVELLER
+  MINI_BUS
+  LUXURY_COACH
+  OTHER
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  ASSIGNED
+  ON_TRIP
+  MAINTENANCE
+  INACTIVE
+}
+
+model Vehicle {
+  id                 String              @id @default(uuid())
+  registrationNumber String              @unique // e.g. KA 01 AB 1234
+  make               String              // e.g. Toyota, Force, Tata
+  model              String              // e.g. Innova Hycross, Urbania, Fortuner
+  year               Int
+  vehicleType        VehicleType         @default(SUV)
+  fuelType           String              // DIESEL, PETROL, EV, HYBRID, CNG
+  transmission       String              // MANUAL, AUTOMATIC
+  seatingCapacity    Int                 @default(7)
+  currentOdometer    Int                 @default(0)
+  purchaseDate       DateTime?
+  status             VehicleStatus       @default(AVAILABLE)
+  notes              String?             @db.Text
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  documents          VehicleDocument[]
+  assignments        VehicleAssignment[]
+  trips              Trip[]
+  maintenanceLogs    MaintenanceRecord[]
+  fuelLogs           FuelRecord[]
+
+  @@index([registrationNumber])
+  @@index([vehicleType])
+  @@index([status])
+}
+
+model VehicleDocument {
+  id             String    @id @default(uuid())
+  vehicleId      String
+  vehicle        Vehicle   @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  documentType   String    // INSURANCE, PUC, FITNESS_CERTIFICATE, ROAD_TAX, PERMIT, REGISTRATION_RC
+  documentNumber String
+  issueDate      DateTime?
+  expiryDate     DateTime
+  fileUrl        String?
+  status         String    @default("VALID") // VALID, EXPIRING_SOON, EXPIRED
+  createdAt      DateTime  @default(now())
+
+  @@index([vehicleId])
+  @@index([expiryDate])
+}
+
+model VehicleAssignment {
+  id          String    @id @default(uuid())
+  vehicleId   String
+  vehicle     Vehicle   @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  driverId    String
+  driver      Driver    @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  tripId      String?
+  trip        Trip?     @relation(fields: [tripId], references: [id], onDelete: SetNull)
+  startDate   DateTime
+  endDate     DateTime
+  status      String    @default("ASSIGNED") // ASSIGNED, COMPLETED, CANCELLED
+  createdAt   DateTime  @default(now())
+
+  @@index([vehicleId])
+  @@index([driverId])
+  @@index([startDate, endDate])
+}
+
+// ==========================================
+// 7. TRIP OPERATIONS, DISPATCH & EXPENSES
+// ==========================================
+
+enum TripStatus {
+  SCHEDULED
+  ASSIGNED
+  DRIVER_CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model Trip {
+  id              String              @id @default(uuid())
+  tripCode        String              @unique // e.g. SCT-TRP-2026-0001
+  bookingId       String
+  booking         Booking             @relation(fields: [bookingId], references: [id], onDelete: Restrict)
+  tourId          String
+  tour            Tour                @relation(fields: [tourId], references: [id], onDelete: Restrict)
+  vehicleId       String?
+  vehicle         Vehicle?            @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  driverId        String?
+  driver          Driver?             @relation(fields: [driverId], references: [id], onDelete: SetNull)
+  operatorId      String?
+  operator        User?               @relation("AssignedOperatorTrips", fields: [operatorId], references: [id], onDelete: SetNull)
+  
+  startDateTime   DateTime
+  endDateTime     DateTime
+  pickupLocation  String
+  dropLocation    String
+  passengersCount Int                 @default(2)
+  startOdometer   Int?
+  endOdometer     Int?
+  status          TripStatus          @default(SCHEDULED)
+  routeNotes      String?             @db.Text
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  assignments     VehicleAssignment[]
+  expenses        TripExpense[]
+  fuelRecords     FuelRecord[]
+
+  @@index([tripCode])
+  @@index([bookingId])
+  @@index([vehicleId])
+  @@index([driverId])
+  @@index([status])
+  @@index([startDateTime])
+}
+
+enum ExpenseCategory {
+  FUEL
+  TOLL
+  PARKING
+  DRIVER_ALLOWANCE
+  ACCOMMODATION
+  PERMITS
+  MEALS
+  EMERGENCY_REPAIR
+  MISC
+}
+
+model TripExpense {
+  id              String          @id @default(uuid())
+  tripId          String
+  trip            Trip            @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  category        ExpenseCategory @default(FUEL)
+  description     String
+  amount          Decimal         @db.Decimal(10, 2)
+  receiptUrl      String?
+  dateIncurred    DateTime        @default(now())
+  createdAt       DateTime        @default(now())
+
+  @@index([tripId])
+  @@index([category])
+}
+
+model FuelRecord {
+  id            String    @id @default(uuid())
+  vehicleId     String
+  vehicle       Vehicle   @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  tripId        String?
+  trip          Trip?     @relation(fields: [tripId], references: [id], onDelete: SetNull)
+  date          DateTime  @default(now())
+  odometer      Int
+  fuelType      String    @default("DIESEL")
+  litres        Decimal   @db.Decimal(8, 2)
+  pricePerLitre Decimal   @db.Decimal(8, 2)
+  totalCost     Decimal   @db.Decimal(10, 2)
+  fuelStation   String?
+  receiptUrl    String?
+  createdAt     DateTime  @default(now())
+
+  @@index([vehicleId])
+  @@index([tripId])
+  @@index([date])
+}
+
+// ==========================================
+// 8. VEHICLE MAINTENANCE & SERVICE
+// ==========================================
+
+enum MaintenanceType {
+  REGULAR_SERVICE
+  OIL_CHANGE
+  BRAKE_SERVICE
+  TYRE_REPLACEMENT
+  BATTERY
+  ENGINE
+  AC
+  ELECTRICAL
+  BODY_WORK
+  EMERGENCY_REPAIR
+  OTHER
+}
+
+model MaintenanceRecord {
+  id              String            @id @default(uuid())
+  vehicleId       String
+  vehicle         Vehicle           @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  serviceDate     DateTime
+  odometerReading Int
+  serviceType     MaintenanceType   @default(REGULAR_SERVICE)
+  workshopName    String
+  description     String            @db.Text
+  partsCost       Decimal           @default(0.00) @db.Decimal(10, 2)
+  labourCost      Decimal           @default(0.00) @db.Decimal(10, 2)
+  otherCost       Decimal           @default(0.00) @db.Decimal(10, 2)
+  totalCost       Decimal           @db.Decimal(10, 2)
+  nextServiceDate DateTime?
+  nextServiceKm   Int?
+  receiptUrl      String?
+  createdAt       DateTime          @default(now())
+
+  items           MaintenanceItem[]
+
+  @@index([vehicleId])
+  @@index([serviceDate])
+}
+
+model MaintenanceItem {
+  id                  String            @id @default(uuid())
+  maintenanceRecordId String
+  maintenanceRecord   MaintenanceRecord @relation(fields: [maintenanceRecordId], references: [id], onDelete: Cascade)
+  partName            String
+  quantity            Int               @default(1)
+  unitCost            Decimal           @db.Decimal(10, 2)
+  totalCost           Decimal           @db.Decimal(10, 2)
+
+  @@index([maintenanceRecordId])
+}
+
+// ==========================================
+// 9. MARKETING, ATTRIBUTION & SEO
+// ==========================================
+
+model Campaign {
+  id           String        @id @default(uuid())
+  name         String
+  slug         String        @unique
+  source       String        // GOOGLE, META, WHATSAPP, RCS, INFLUENCER
+  medium       String        // CPC, SOCIAL, MESSAGE, EMAIL
+  campaignTag  String        // e.g. DIWALI_2026
+  landingPage  String        @default("/")
+  budget       Decimal?      @db.Decimal(10, 2)
+  startDate    DateTime
+  endDate      DateTime?
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+
+  leads        Lead[]
+  utmTrackings UTMTracking[]
+
+  @@index([slug])
+  @@index([isActive])
+}
+
+model UTMTracking {
+  id           String    @id @default(uuid())
+  campaignId   String?
+  campaign     Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  utmSource    String?
+  utmMedium    String?
+  utmCampaign  String?
+  utmContent   String?
+  utmTerm      String?
+  ipAddress    String?
+  userAgent    String?
+  landingUrl   String
+  converted    Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+
+  @@index([campaignId])
+  @@index([createdAt])
+}
+
+model SEOMetadata {
+  id             String   @id @default(uuid())
+  pagePath       String   @unique // e.g. "/tours/kashmir-paradise"
+  metaTitle      String
+  metaDescription String  @db.Text
+  canonicalUrl   String?
+  ogTitle        String?
+  ogDescription  String?  @db.Text
+  ogImage        String?
+  schemaType     String?  // TouristDestination, TouristTrip, Organization
+  schemaJson     String?  @db.Text
+  robots         String   @default("index, follow")
+  updatedAt      DateTime @updatedAt
+
+  @@index([pagePath])
+}
+
+// ==========================================
+// 10. NOTIFICATIONS, MEDIA & AUDIT LOGS
+// ==========================================
+
+model Notification {
+  id        String   @id @default(uuid())
+  recipient String   // User ID or "ALL_ADMINS" or Customer ID
+  type      String   // NEW_LEAD, NEW_BOOKING, TRIP_ASSIGNED, MAINTENANCE_DUE, DOC_EXPIRY
+  title     String
+  message   String   @db.Text
+  linkUrl   String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([recipient])
+  @@index([isRead])
+}
+
+model Media {
+  id           String   @id @default(uuid())
+  fileName     String
+  fileUrl      String
+  fileType     String   // IMAGE, DOCUMENT, PDF
+  mimeType     String
+  sizeBytes    Int
+  altText      String?
+  uploadedBy   String?
+  createdAt    DateTime @default(now())
+
+  @@index([fileType])
+}
+
+model Setting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String   @db.Text
+  description String?
+  updatedAt   DateTime @updatedAt
+
+  @@index([key])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String   // CREATE, UPDATE, DELETE, LOGIN, EXPORT
+  entityName String   // Booking, Trip, Driver, Vehicle, Lead
+  entityId   String?
+  details    String?  @db.Text
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+  @@index([entityName])
+  @@index([createdAt])
+}

@@ -1,0 +1,260 @@
+---
+// Interactive Waypoint Route Visualizer Component (Clean Modern Bright Theme)
+const waypoints = [
+  {
+    id: 1,
+    code: "STOP 01",
+    name: "Bangalore Chauffeur Departure Hub",
+    region: "Karnataka Heartland",
+    distance: "0 KM &bull; Departure Point",
+    altitude: "920 m Above Sea Level",
+    driveTime: "On-Time Doorstep Pickup",
+    image: "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1600&q=85",
+    narrative: "Your personal verified chauffeur arrives at your residence or Kempegowda Airport (BLR) 15 minutes ahead of schedule in a sanitized Toyota Innova Crysta ZX with cooled refreshments and high-speed Wi-Fi.",
+    highlight: "Doorstep Luggage Porter & Bottled Water",
+    chauffeurPerk: "Chauffeur fluent in English, Kannada & Hindi with 10+ yrs highway safety",
+    secretView: "Expressway Sunrise over Bidadi date palms",
+    foodPairing: "Warm traditional filter coffee & Mysore Pak treat on-board"
+  },
+  {
+    id: 2,
+    code: "STOP 02",
+    name: "Mysore Palace & Srirangapatna Citadel",
+    region: "Wodeyar Sovereign Capital",
+    distance: "145 KM from Origin",
+    altitude: "770 m &bull; Royal Plains",
+    driveTime: "3.0 Hours via 10-Lane Expressway",
+    image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1600&q=85",
+    narrative: "Experience the grand heritage of the Wodeyars. Enjoy VIP fast-track entry to Mysore Palace, explore Tipu Sultan's summer citadel, and watch 97,000 golden lights illuminate the evening sky.",
+    highlight: "Priority Palace Access & Archeological Guide",
+    chauffeurPerk: "Chauffeur secures reserved palace VIP parking",
+    secretView: "Sunset panorama over Chamundi Hill viewpoint",
+    foodPairing: "Royal Mysore Mylari Dosa & Cardamom Badam Milk"
+  },
+  {
+    id: 3,
+    code: "STOP 03",
+    name: "Kabini & Nagarhole Wildlife Safari",
+    region: "Western Ghats Biosphere",
+    distance: "220 KM from Origin",
+    altitude: "810 m &bull; Forest Canopy",
+    driveTime: "4.5 Hours Scenic Forest Drive",
+    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1600&q=85",
+    narrative: "Transition from royal palaces to untamed jungle rivers. Embark on a private sunset boat safari on the Kabini River, spotting wild elephants, leopards, and exotic aquatic birdlife.",
+    highlight: "Private Sunset River Safari with Naturalist",
+    chauffeurPerk: "Vehicle equipped with binoculars & telephoto camera rests",
+    secretView: "Kabini backwaters riverbank elephant herd bathing",
+    foodPairing: "Local jungle honey roasted nuts & herbal spiced tea"
+  },
+  {
+    id: 4,
+    code: "STOP 04",
+    name: "Coorg Madikeri Coffee Highlands",
+    region: "Scotland of India",
+    distance: "310 KM from Origin",
+    altitude: "1,340 m &bull; Misty Highlands",
+    driveTime: "6.0 Hours Highland Ascent",
+    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1600&q=85",
+    narrative: "Breathe in crisp mountain air as your vehicle climbs the Western Ghats. Check into a private coffee estate bungalow, tour Arabica plantations, and take a 4x4 open-top jeep safari to Mandalpatti ridge.",
+    highlight: "Mandalpatti Cloud Peak 4x4 Jeep Expedition",
+    chauffeurPerk: "Chauffeur trained for steep mountain hairpin navigation",
+    secretView: "Sea of clouds morning sunrise over Mandalpatti valley",
+    foodPairing: "Authentic Kodava Pandi Curry / Bamboo Shoot Stew with Akki Rotti"
+  },
+  {
+    id: 5,
+    code: "STOP 05",
+    name: "Chikmagalur Cloud Ridge & Mullayanagiri",
+    region: "Baba Budangiri Range",
+    distance: "430 KM from Origin",
+    altitude: "1,930 m &bull; Highest Peak in Karnataka",
+    driveTime: "8.5 Hours Mountain Ridge Cruise",
+    image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1600&q=85",
+    narrative: "Stand atop Mullayanagiri, the highest peak in Karnataka, where ancient temples touch the clouds. Return at leisure via smooth NH75 with handcrafted coffee beans and unforgettable memories.",
+    highlight: "Mullayanagiri Peak VIP Drive & Hebbe Waterfalls Trek",
+    chauffeurPerk: "Door-to-door return transfer with zero toll or fuel stress",
+    secretView: "Golden Hour sunset over Baba Budangiri valleys",
+    foodPairing: "Freshly roasted single-origin Chikmagalur dark roast coffee"
+  }
+];
+---
+
+<section id="journey-route-visualizer" class="py-16 sm:py-24 bg-slate-50 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-blue-600 font-bold mb-2">
+          <span>✦</span> Popular Outstation Circuit Choreography
+        </div>
+        <h2 class="font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">
+          Interactive Route Visualizer
+        </h2>
+        <p class="text-sm text-slate-600 mt-1 max-w-xl">
+          Click through each stop along the signature South Indian circuit to view driving distance, road conditions, and chauffeur perks.
+        </p>
+      </div>
+
+      <a
+        href="/plan-your-trip"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider shadow-md transition-all"
+      >
+        <span>Customize This Route</span>
+        <span>→</span>
+      </a>
+    </div>
+
+    <!-- Stepper Buttons -->
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">
+      {waypoints.map((wp, idx) => (
+        <button
+          class={`wp-tab-btn p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${idx === 0 ? 'bg-white border-blue-600 shadow-md ring-2 ring-blue-500/20' : 'bg-white/80 border-slate-200 hover:border-blue-400'}`}
+          data-wp-id={wp.id}
+        >
+          <div class="flex items-center justify-between mb-1.5">
+            <span class={`wp-indicator w-2.5 h-2.5 rounded-full ${idx === 0 ? 'bg-blue-600 ring-2 ring-blue-200' : 'bg-slate-300'}`}></span>
+            <span class="text-[10px] font-mono font-bold text-blue-600">{wp.code}</span>
+          </div>
+          <h4 class="font-bold text-xs text-slate-900 line-clamp-1">{wp.name.split(" ")[0]} {wp.name.split(" ")[1]}</h4>
+          <span class="text-[10px] font-mono text-slate-500 block mt-0.5">{wp.distance.split("&bull;")[0]}</span>
+        </button>
+      ))}
+    </div>
+
+    <!-- Display Showcase Card -->
+    <div class="rounded-3xl bg-white border border-slate-200 shadow-xl p-6 sm:p-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Left Image -->
+        <div class="lg:col-span-6 space-y-3">
+          <div class="relative rounded-2xl overflow-hidden aspect-[16/10] bg-slate-900 shadow-lg group">
+            <img
+              id="wp-img"
+              src={waypoints[0].image}
+              alt={waypoints[0].name}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+
+            <div class="absolute top-3 left-3 flex gap-2">
+              <span id="wp-region" class="px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-[10px] font-mono text-white font-semibold">
+                {waypoints[0].region}
+              </span>
+              <span id="wp-altitude" class="px-2.5 py-1 rounded-md bg-blue-600/80 backdrop-blur-md text-[10px] font-mono text-white font-semibold">
+                {waypoints[0].altitude}
+              </span>
+            </div>
+
+            <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center bg-black/60 backdrop-blur-md px-3.5 py-2 rounded-xl text-xs text-white">
+              <span class="font-mono text-slate-300">Estimated Drive:</span>
+              <span id="wp-drivetime" class="font-bold text-amber-300 font-mono">
+                {waypoints[0].driveTime}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Info -->
+        <div class="lg:col-span-6 space-y-5">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span id="wp-code" class="text-xs font-mono font-bold text-blue-600">
+                {waypoints[0].code}
+              </span>
+              <span class="text-slate-300">&bull;</span>
+              <span id="wp-dist" class="text-xs font-mono text-emerald-600 font-semibold">
+                {waypoints[0].distance}
+              </span>
+            </div>
+            <h3 id="wp-name" class="font-bold text-2xl sm:text-3xl text-slate-900">
+              {waypoints[0].name}
+            </h3>
+          </div>
+
+          <p id="wp-narrative" class="text-sm text-slate-600 leading-relaxed font-normal">
+            {waypoints[0].narrative}
+          </p>
+
+          <!-- 4 Mini Specs Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 rounded-xl bg-blue-50/60 border border-blue-100">
+              <span class="text-[10px] font-bold text-blue-700 block mb-0.5">★ Signature Inclusion:</span>
+              <p id="wp-highlight" class="text-slate-800">{waypoints[0].highlight}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-emerald-50/60 border border-emerald-100">
+              <span class="text-[10px] font-bold text-emerald-700 block mb-0.5">✓ Chauffeur Service:</span>
+              <p id="wp-chauffeur" class="text-slate-800">{waypoints[0].chauffeurPerk}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-amber-50/60 border border-amber-100">
+              <span class="text-[10px] font-bold text-amber-700 block mb-0.5">👁 Panoramic View:</span>
+              <p id="wp-secret" class="text-slate-800">{waypoints[0].secretView}</p>
+            </div>
+            <div class="p-3 rounded-xl bg-rose-50/60 border border-rose-100">
+              <span class="text-[10px] font-bold text-rose-700 block mb-0.5">☕ Local Culinary:</span>
+              <p id="wp-food" class="text-slate-800">{waypoints[0].foodPairing}</p>
+            </div>
+          </div>
+
+          <!-- Action -->
+          <div class="pt-2">
+            <a
+              href="/plan-your-trip"
+              class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-2"
+            >
+              <span>Add Stop to Itinerary</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Waypoint Switcher Script -->
+<script define:vars={{ waypoints }}>
+  const btns = document.querySelectorAll('.wp-tab-btn');
+  const img = document.getElementById('wp-img');
+  const region = document.getElementById('wp-region');
+  const altitude = document.getElementById('wp-altitude');
+  const drivetime = document.getElementById('wp-drivetime');
+  const code = document.getElementById('wp-code');
+  const dist = document.getElementById('wp-dist');
+  const name = document.getElementById('wp-name');
+  const narrative = document.getElementById('wp-narrative');
+  const highlight = document.getElementById('wp-highlight');
+  const chauffeur = document.getElementById('wp-chauffeur');
+  const secret = document.getElementById('wp-secret');
+  const food = document.getElementById('wp-food');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = parseInt(btn.dataset.wpId);
+      const wp = waypoints.find(w => w.id === targetId);
+      if (!wp) return;
+
+      btns.forEach(b => {
+        const ind = b.querySelector('.wp-indicator');
+        if (b === btn) {
+          b.className = 'wp-tab-btn p-3.5 rounded-2xl border text-left transition-all cursor-pointer bg-white border-blue-600 shadow-md ring-2 ring-blue-500/20';
+          if (ind) ind.className = 'wp-indicator w-2.5 h-2.5 rounded-full bg-blue-600 ring-2 ring-blue-200';
+        } else {
+          b.className = 'wp-tab-btn p-3.5 rounded-2xl border text-left transition-all cursor-pointer bg-white/80 border-slate-200 hover:border-blue-400';
+          if (ind) ind.className = 'wp-indicator w-2.5 h-2.5 rounded-full bg-slate-300';
+        }
+      });
+
+      if (img) img.src = wp.image;
+      if (region) region.textContent = wp.region;
+      if (altitude) altitude.textContent = wp.altitude;
+      if (drivetime) drivetime.textContent = wp.driveTime;
+      if (code) code.textContent = wp.code;
+      if (dist) dist.innerHTML = wp.distance;
+      if (name) name.textContent = wp.name;
+      if (narrative) narrative.textContent = wp.narrative;
+      if (highlight) highlight.textContent = wp.highlight;
+      if (chauffeur) chauffeur.textContent = wp.chauffeurPerk;
+      if (secret) secret.textContent = wp.secretView;
+      if (food) food.textContent = wp.foodPairing;
+    });
+  });
+</script>

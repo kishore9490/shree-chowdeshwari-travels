@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Journey Confirmed | Shree Chowdeshwari Travels"
+  description="Your holiday reservation is confirmed. View and print your travel voucher."
+>
+  <section class="py-36 bg-[#FAF8F5] min-h-[85vh] flex items-center justify-center">
+    <div class="max-w-2xl w-full mx-auto px-4 sm:px-8">
+      <div class="p-8 sm:p-14 rounded-3xl bg-white border border-[#E8E2D6] shadow-editorial text-center space-y-6">
+        <!-- Icon -->
+        <div class="w-14 h-14 rounded-full bg-[#FAF8F5] border border-[#E8E2D6] flex items-center justify-center mx-auto text-[#2C3E2D]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12.75l6 6 9-13.5"/></svg>
+        </div>
+
+        <div>
+          <span class="text-[10px] uppercase tracking-[0.25em] font-bold text-[#8C733E] block mb-2">
+            Reservation Logged
+          </span>
+          <h1 class="font-serif font-light text-3xl sm:text-4xl text-[#171717]">
+            Your Journey is Confirmed
+          </h1>
+          <p class="text-xs sm:text-sm text-[#6B7280] font-light mt-2 max-w-md mx-auto">
+            Your booking voucher and dedicated chauffeur assignment details are being prepared.
+          </p>
+        </div>
+
+        <!-- Voucher Card -->
+        <div class="p-6 sm:p-8 rounded-2xl bg-[#FAF8F5] border border-[#E8E2D6] text-left space-y-4">
+          <div class="flex justify-between items-center border-b border-[#E8E2D6] pb-3">
+            <span class="text-[10px] uppercase tracking-wider text-[#9CA3AF] font-bold">Booking Reference</span>
+            <span id="conf-ref" class="font-mono font-semibold text-sm text-[#171717]">SCT-2026-891024</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 text-xs">
+            <div>
+              <span class="text-[#9CA3AF] block text-[10px] uppercase tracking-wider">Guest Name</span>
+              <strong id="conf-name" class="font-serif text-[#171717] text-sm">Dr. Rameshwar Rao</strong>
+            </div>
+            <div>
+              <span class="text-[#9CA3AF] block text-[10px] uppercase tracking-wider">Journey</span>
+              <strong id="conf-tour" class="text-[#171717]">Royal Mysore &amp; Coorg Odyssey</strong>
+            </div>
+            <div>
+              <span class="text-[#9CA3AF] block text-[10px] uppercase tracking-wider">Departure Date</span>
+              <strong id="conf-date" class="font-mono text-[#171717]">10 April 2026</strong>
+            </div>
+            <div>
+              <span class="text-[#9CA3AF] block text-[10px] uppercase tracking-wider">Guests</span>
+              <strong id="conf-guests" class="text-[#171717]">4 Guests</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            onclick="window.print()"
+            class="px-7 py-3 rounded-full bg-[#171717] hover:bg-[#2E2E2E] text-white text-xs uppercase tracking-[0.15em] font-semibold transition-all shadow-md"
+          >
+            Print Travel Voucher
+          </button>
+          <a
+            href="https://wa.me/919845012345"
+            target="_blank"
+            rel="noopener"
+            class="px-7 py-3 rounded-full border border-[#E8E2D6] hover:border-[#171717] text-[#171717] text-xs uppercase tracking-[0.15em] font-semibold transition-all"
+          >
+            WhatsApp Operations Desk
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get('ref');
+    const name = params.get('name');
+    const tour = params.get('tour');
+    const date = params.get('date');
+    const guests = params.get('guests');
+
+    if (ref) document.getElementById('conf-ref')!.textContent = ref;
+    if (name) document.getElementById('conf-name')!.textContent = decodeURIComponent(name);
+    if (tour) document.getElementById('conf-tour')!.textContent = decodeURIComponent(tour);
+    if (date) document.getElementById('conf-date')!.textContent = decodeURIComponent(date);
+    if (guests) document.getElementById('conf-guests')!.textContent = `${guests} Guests`;
+  </script>
+</BaseLayout>

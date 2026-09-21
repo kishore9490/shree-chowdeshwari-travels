@@ -1,0 +1,193 @@
+---
+// Luxury Interactive Fleet Showcase Component (Clean Bright Modern Theme)
+const fleetItems = [
+  {
+    id: "innova",
+    name: "Toyota Innova Crysta ZX",
+    tagline: "The Benchmark of Family Holiday Comfort",
+    category: "Executive Luxury MUV",
+    capacity: "6-7 Passengers",
+    luggage: "4 Large Suitcases + Hand Baggage",
+    comfort: "Plush Reclining Captain Seats with Armrests",
+    climate: "Independent Digital Rear AC Climate Control",
+    entertainment: "High-Speed Onboard WiFi & Fast USB Chargers",
+    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=85",
+    idealFor: "Family Outstation Tours, Airport VIP Transfers, Hillstation Escapes",
+    rate: "₹18 / km (All-Inclusive Driver & Toll Packages Available)"
+  },
+  {
+    id: "urbania",
+    name: "Force Urbania Executive",
+    tagline: "First-Class Private Van for Extended Groups",
+    category: "Air-Suspended Luxury Van",
+    capacity: "12 / 17 Passengers",
+    luggage: "Dedicated High-Capacity Luggage Compartment",
+    comfort: "Individual Aircraft-Style Ergonomic High-Back Seats",
+    climate: "Roof-Mounted Independent AC Louvers per Row",
+    entertainment: "LED Entertainment Screens & Panoramic Windows",
+    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=85",
+    idealFor: "Extended Family Holidays, Corporate Delegations, Wedding Escorts",
+    rate: "₹28 / km (Custom Multi-Day Outstation Quotes)"
+  },
+  {
+    id: "fortuner",
+    name: "Toyota Fortuner 4x4",
+    tagline: "High-Altitude Mountain & VIP Expedition",
+    category: "All-Terrain VIP SUV",
+    capacity: "6 Passengers",
+    luggage: "3 Large Suitcases",
+    comfort: "Ventilated Leather Seating & Rugged 4WD Capability",
+    climate: "Dual-Zone Automatic Climate Control",
+    entertainment: "Premium JBL Sound System & Ambient Lighting",
+    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85",
+    idealFor: "Misty Mountain Treks, Offroad Escapes, Executive Escorts",
+    rate: "₹24 / km (Highland & Mountain Special)"
+  }
+];
+---
+
+<section class="py-16 sm:py-24 bg-white border-t border-slate-200 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-blue-600 font-bold mb-2">
+          <span>✦</span> 100% Company-Owned Mobility
+        </div>
+        <h2 class="font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">
+          Our Verified Fleet
+        </h2>
+        <p class="text-sm text-slate-600 mt-1 max-w-xl">
+          Clean, sanitized, and company-owned vehicles driven by full-time verified chauffeurs.
+        </p>
+      </div>
+
+      <a
+        href="/fleet"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-blue-600 hover:text-white text-xs font-bold uppercase tracking-wider text-slate-900 shadow-sm transition-all"
+      >
+        <span>Explore All Fleet Specs</span>
+        <span>→</span>
+      </a>
+    </div>
+
+    <!-- Interactive Fleet Showcase -->
+    <div class="space-y-6">
+      <!-- Tabs -->
+      <div class="flex flex-wrap items-center gap-2 border-b border-slate-100 pb-3">
+        {fleetItems.map((item, index) => (
+          <button
+            class={`fleet-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${index === 0 ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
+            data-fleet-target={item.id}
+          >
+            {item.name}
+          </button>
+        ))}
+      </div>
+
+      <!-- Vehicle Display Cards -->
+      {fleetItems.map((item, index) => (
+        <div
+          class={`fleet-panel grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm transition-all duration-300 ${index === 0 ? 'block' : 'hidden'}`}
+          data-fleet-id={item.id}
+        >
+          <!-- Vehicle Photo -->
+          <div class="lg:col-span-6 rounded-2xl overflow-hidden aspect-[16/10] bg-slate-900 relative shadow-md group">
+            <img
+              src={item.image}
+              alt={item.name}
+              loading="lazy"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+            />
+            <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-md text-[10px] uppercase font-mono text-white font-semibold">
+              {item.category}
+            </div>
+            <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-md text-xs text-white/90">
+              👥 {item.capacity} &bull; 🧳 {item.luggage}
+            </div>
+          </div>
+
+          <!-- Vehicle Details -->
+          <div class="lg:col-span-6 space-y-4">
+            <div>
+              <span class="text-xs font-mono font-bold text-blue-600 uppercase tracking-wider block mb-1">
+                {item.category}
+              </span>
+              <h3 class="font-bold text-2xl sm:text-3xl text-slate-900">
+                {item.name}
+              </h3>
+              <p class="text-sm text-slate-600 mt-1 font-medium">
+                {item.tagline}
+              </p>
+            </div>
+
+            <!-- Features List -->
+            <div class="space-y-2 text-xs text-slate-700 pt-2 border-t border-slate-200">
+              <div class="flex items-center gap-2">
+                <span class="text-emerald-600 font-bold text-sm">✓</span>
+                <span><strong>Comfort:</strong> {item.comfort}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-emerald-600 font-bold text-sm">✓</span>
+                <span><strong>Climate:</strong> {item.climate}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-emerald-600 font-bold text-sm">✓</span>
+                <span><strong>Amenities:</strong> {item.entertainment}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-blue-600 font-bold text-sm">✦</span>
+                <span><strong>Ideal For:</strong> {item.idealFor}</span>
+              </div>
+            </div>
+
+            <!-- Pricing & Booking -->
+            <div class="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <span class="text-[10px] font-mono text-slate-500 block uppercase">Standard Tariff</span>
+                <span class="font-bold text-slate-900 text-sm">{item.rate}</span>
+              </div>
+
+              <a
+                href="/plan-your-trip"
+                class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider shadow-md transition-all active:scale-95"
+              >
+                Book This Vehicle →
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Tab Switcher Script -->
+<script>
+  const btns = document.querySelectorAll('.fleet-tab-btn');
+  const panels = document.querySelectorAll('.fleet-panel');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const targetId = target.dataset.fleetTarget;
+
+      btns.forEach(b => {
+        b.className = 'fleet-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer bg-slate-100 text-slate-700 hover:bg-slate-200';
+      });
+
+      target.className = 'fleet-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer bg-blue-600 text-white shadow-md shadow-blue-500/25';
+
+      panels.forEach(p => {
+        const el = p as HTMLElement;
+        if (el.dataset.fleetId === targetId) {
+          el.classList.remove('hidden');
+          el.classList.add('block');
+        } else {
+          el.classList.remove('block');
+          el.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

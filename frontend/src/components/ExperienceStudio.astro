@@ -1,0 +1,189 @@
+---
+// Interactive Virtual Experience Studio Component
+const experienceStages = [
+  {
+    step: "01",
+    phase: "VIP ARRIVAL & PRIVATE CHAUFFEUR",
+    title: "Your Private Chauffeur at Your Doorstep",
+    subtitle: "Punctual, sanitized, and flawlessly prepared for the open highway",
+    description: "Your master chauffeur arrives 15 minutes before scheduled departure in a gleaming, company-owned Toyota Innova Crysta ZX or Force Urbania. Chilled mineral water, executive captain seats, USB-C chargers, and high-speed onboard WiFi ensure supreme tranquility from the very first minute.",
+    highlight: "Doorstep VIP Pickup & Real-time Flight/Route Telemetry",
+    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1600&q=85",
+    telemetry: "BANGALORE HQ ➔ HIGHWAY CRUISE &bull; 100% OWN FLEET"
+  },
+  {
+    step: "02",
+    phase: "ROYAL HERITAGE & PALACES",
+    title: "Golden Arches & Sovereign Grandeur",
+    subtitle: "Experience the Mysore Palace illuminated with over 97,000 bulbs",
+    description: "Step inside royal corridors with our certified archeological guide. Skip tourist queues with VIP entry, explore tipu sultan's summer citadel at Srirangapatna, and witness the grand Mysore Palace illuminate in pure golden splendor against the twilight sky.",
+    highlight: "Priority Palace Access & Certified Historian Guide",
+    image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1600&q=85",
+    telemetry: "MYSORE PALACE &bull; 12.3052° N, 76.6552° E &bull; VIP ENTRY"
+  },
+  {
+    step: "03",
+    phase: "HIGHLAND COFFEE & 4X4 EXPEDITION",
+    title: "Misty Valleys & Private Cloud Safaris",
+    subtitle: "Mandalpatti 4x4 open-jeep thrills and private Arabica coffee walks",
+    description: "Ascend into the lush Western Ghats of Coorg. Wake up to misty hillside plantations, walk through aromatic cardamom groves with estate owners, and embark on a private 4x4 open jeep safari soaring above the clouds at Mandalpatti ridge.",
+    highlight: "Exclusive Coffee Plantation Tasting & 4x4 Jeep Safari",
+    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1600&q=85",
+    telemetry: "COORG HIGHLANDS &bull; ELEVATION 4,400 FT &bull; MANDALPATTI"
+  },
+  {
+    step: "04",
+    phase: "LAGOON SANCTUARY & HOUSEBOATS",
+    title: "Private Alleppey Houseboat Sunset Dinner",
+    subtitle: "Cruising palm-fringed backwaters with private chef and candlelight",
+    description: "Embark on an air-conditioned luxury private Kettuvallam. Glide through emerald canals as your dedicated onboard chef prepares fresh river Karimeen and authentic sadhya meals, concluding with twilight stargazing over the tranquil Vembanad Lake.",
+    highlight: "Private AC Houseboat & Curated Onboard Dining",
+    image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1600&q=85",
+    telemetry: "ALLEPPEY BACKWATERS &bull; PRIVATE KETTUVALLAM &bull; RETREAT"
+  }
+];
+---
+
+<section id="experience-studio" class="py-24 sm:py-36 bg-[#080808] text-white relative overflow-hidden">
+  <!-- Subtle Ambient Glow -->
+  <div class="absolute top-0 right-1/4 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+    <!-- Header -->
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-6">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-8 h-[1px] bg-[#D4AF37]"></span>
+          <span class="text-xs uppercase tracking-[0.25em] font-bold text-[#D4AF37]">
+            The Journey Experience
+          </span>
+        </div>
+        <h2 class="font-serif font-light text-4xl sm:text-6xl text-white tracking-tight leading-[1.05]">
+          How Your Journey<br /><span class="font-editorial italic text-[#F3E5AB]">Unfolds in Luxury</span>
+        </h2>
+      </div>
+
+      <p class="text-sm text-white/60 font-light max-w-md leading-relaxed">
+        Click through the 4 milestones below to preview the seamless choreography, private chauffeur care, and unforgettable moments crafted into every Shree Chowdeshwari holiday.
+      </p>
+    </div>
+
+    <!-- Interactive 4-Stage Showcase Container -->
+    <div class="space-y-8">
+      <!-- Stage Nav Tabs -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        {experienceStages.map((stage, idx) => (
+          <button
+            class={`exp-tab-btn p-4 sm:p-5 rounded-2xl border text-left transition-all duration-500 cursor-pointer ${idx === 0 ? 'bg-[#171717] border-amber-500/50 shadow-lg shadow-amber-500/10' : 'bg-white/[0.02] border-white/10 hover:border-white/20'}`}
+            data-target-step={stage.step}
+          >
+            <span class={`exp-tab-num font-serif text-2xl font-light block mb-1 ${idx === 0 ? 'text-[#D4AF37]' : 'text-white/40'}`}>
+              {stage.step}
+            </span>
+            <span class="text-[10px] uppercase tracking-wider font-semibold text-white/80 block line-clamp-1">
+              {stage.phase}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <!-- Stage Display Panels -->
+      {experienceStages.map((stage, idx) => (
+        <div
+          class={`exp-panel grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center p-6 sm:p-12 rounded-3xl bg-gradient-to-br from-[#121212] to-[#0A0A0A] border border-white/15 shadow-2xl transition-all duration-700 ${idx === 0 ? 'block' : 'hidden'}`}
+          data-step-id={stage.step}
+        >
+          <!-- Stage Image Frame -->
+          <div class="lg:col-span-7 rounded-2xl overflow-hidden aspect-[16/10] bg-[#121212] relative group shadow-2xl">
+            <img
+              src={stage.image}
+              alt={stage.title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+
+            <!-- Telemetry Pill on Image -->
+            <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-[10px] font-mono tracking-wider text-[#E5DFC5]">
+              {stage.telemetry}
+            </div>
+
+            <!-- Highlight badge at bottom -->
+            <div class="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-md p-3.5 rounded-xl border border-white/10 text-xs text-white/90 flex items-center gap-2">
+              <span class="text-[#D4AF37] font-bold">✓</span>
+              <span>{stage.highlight}</span>
+            </div>
+          </div>
+
+          <!-- Stage Narrative Details -->
+          <div class="lg:col-span-5 space-y-6">
+            <div>
+              <span class="text-[10px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold block mb-1">
+                Milestone {stage.step}
+              </span>
+              <h3 class="font-serif text-3xl sm:text-4xl text-white font-light leading-tight">
+                {stage.title}
+              </h3>
+              <p class="font-editorial italic text-lg text-[#F3E5AB] mt-1">
+                "{stage.subtitle}"
+              </p>
+            </div>
+
+            <p class="text-sm text-white/70 font-light leading-relaxed">
+              {stage.description}
+            </p>
+
+            <div class="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center gap-4">
+              <a
+                href="/plan-your-trip"
+                class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA771C] text-[#121212] text-xs font-black uppercase tracking-[0.16em] text-center shadow-lg transition-transform hover:scale-105"
+              >
+                Book This Experience
+              </a>
+              <a
+                href="/tours"
+                class="w-full sm:w-auto px-6 py-3.5 rounded-full border border-white/20 hover:border-white text-xs font-semibold uppercase tracking-[0.16em] text-white text-center transition-all"
+              >
+                View Packages
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const expBtns = document.querySelectorAll('.exp-tab-btn');
+  const expPanels = document.querySelectorAll('.exp-panel');
+
+  expBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target-step');
+
+      expBtns.forEach(b => {
+        b.classList.remove('bg-[#171717]', 'border-amber-500/50', 'shadow-lg', 'shadow-amber-500/10');
+        b.classList.add('bg-white/[0.02]', 'border-white/10');
+        const num = b.querySelector('.exp-tab-num');
+        num?.classList.remove('text-[#D4AF37]');
+        num?.classList.add('text-white/40');
+      });
+
+      btn.classList.add('bg-[#171717]', 'border-amber-500/50', 'shadow-lg', 'shadow-amber-500/10');
+      btn.classList.remove('bg-white/[0.02]', 'border-white/10');
+      const activeNum = btn.querySelector('.exp-tab-num');
+      activeNum?.classList.add('text-[#D4AF37]');
+      activeNum?.classList.remove('text-white/40');
+
+      expPanels.forEach(p => {
+        if (p.getAttribute('data-step-id') === target) {
+          p.classList.remove('hidden');
+          p.classList.add('block');
+        } else {
+          p.classList.remove('block');
+          p.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

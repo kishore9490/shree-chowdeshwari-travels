@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /my-account/*
+Disallow: /api/*
+
+Sitemap: https://shreechowdeshwaritravels.com/sitemap.xml

@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DestinationCard from '../../components/DestinationCard.astro';
+import { mockDatabase } from '../../../../backend/src/data/mockDatabase';
+
+const destinations = mockDatabase.destinations;
+---
+
+<BaseLayout
+  title="Destinations & Travel Circuits | Shree Chowdeshwari Travels"
+  description="Explore iconic travel circuits across Karnataka, South India, the Himalayas, and international destinations with private chauffeur luxury."
+>
+  <!-- Editorial Page Header -->
+  <section class="pt-36 pb-20 bg-[#FAF8F5] border-b border-[#E8E2D6] text-left relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <span class="text-xs uppercase tracking-[0.25em] font-bold text-[#8C733E] block mb-3">
+        The Destination Portfolio
+      </span>
+      <h1 class="font-serif font-light text-4xl sm:text-6xl text-[#171717] tracking-tight leading-[1.05] mb-6">
+        Curated Circuits &amp;<br /><span class="font-editorial italic">Extraordinary Places</span>
+      </h1>
+      <p class="text-sm sm:text-base text-[#6B7280] max-w-2xl font-light leading-relaxed">
+        From royal heritage forts in Mysore and mist-shrouded coffee estates in Coorg to tranquil backwater houseboats in Alleppey and snow peaks in Kashmir.
+      </p>
+    </div>
+  </section>
+
+  <!-- Destinations Grid (Editorial Layout) -->
+  <section class="py-20 sm:py-28 bg-[#FAF8F5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+        {destinations.map(dest => (
+          <DestinationCard destination={dest} />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

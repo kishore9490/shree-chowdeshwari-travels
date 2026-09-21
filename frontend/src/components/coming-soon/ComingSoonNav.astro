@@ -1,0 +1,53 @@
+---
+// ComingSoonNav.astro - Ultra-Modern Floating Pill Header
+---
+
+<header class="w-full px-4 sm:px-8 pt-4 sm:pt-6 pb-2 relative z-30 flex items-center justify-center safe-top">
+  <div class="w-full max-w-6xl flex items-center justify-between glass-pill px-4 sm:px-6 py-2.5 sm:py-3 rounded-full border border-white/10 shadow-2xl">
+    <!-- Brand Emblem & Wordmark -->
+    <div class="flex items-center gap-3">
+      <div class="relative w-9 h-9 sm:w-11 sm:h-11 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 via-blue-600 to-amber-200 flex items-center justify-center shadow-lg">
+        <div class="w-full h-full rounded-full bg-[#0B1120] flex items-center justify-center overflow-hidden p-0.5">
+          <img
+            src="/images/sct-logo-transparent.png"
+            alt="Shree Chowdeshwari Tours & Travels Logo"
+            class="w-full h-full object-contain"
+            onerror="this.src='/sct-logo.jpg'"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <span class="font-heading text-xs sm:text-sm font-bold tracking-wider text-white">
+          SHREE CHOWDESHWARI
+        </span>
+        <span class="text-[9px] sm:text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-amber-400">
+          Tours & Travels
+        </span>
+      </div>
+    </div>
+
+    <!-- Center / Right Badges -->
+    <div class="flex items-center gap-3 sm:gap-4">
+      <!-- Live Status Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/25">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+        </span>
+        <span class="text-[10px] sm:text-xs font-mono-tech font-bold uppercase tracking-widest text-amber-300">
+          29.09.2026
+        </span>
+      </div>
+
+      <!-- VIP Button -->
+      <button
+        type="button"
+        class="trigger-notify-modal hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-heading font-semibold text-white tracking-wide transition-all duration-200 hover:scale-105"
+      >
+        <span>VIP Access</span>
+        <span class="text-amber-400">✦</span>
+      </button>
+    </div>
+  </div>
+</header>

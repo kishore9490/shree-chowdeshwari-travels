@@ -1,0 +1,28 @@
+---
+// index.astro - Luxury Coming Soon Landing Page for Shree Chowdeshwari Tours & Travels
+import ComingSoonLayout from '../layouts/ComingSoonLayout.astro';
+import ComingSoonNav from '../components/coming-soon/ComingSoonNav.astro';
+import HeroCinematic from '../components/coming-soon/HeroCinematic.astro';
+import ComingSoonFooter from '../components/coming-soon/ComingSoonFooter.astro';
+import WhatsAppFloating from '../components/coming-soon/WhatsAppFloating.astro';
+---
+
+<ComingSoonLayout
+  title="Shree Chowdeshwari Tours & Travels | Coming Soon"
+  description="Something extraordinary is about to begin. Shree Chowdeshwari Tours & Travels launches 29 September 2026."
+  canonicalUrl="https://shreechowdeshwari.com"
+>
+  <!-- Minimal Navigation -->
+  <ComingSoonNav />
+
+  <!-- Main Full-Screen Cinematic Coming Soon Stage -->
+  <main class="flex-grow flex flex-col justify-center">
+    <HeroCinematic />
+  </main>
+
+  <!-- Minimal Editorial Footer -->
+  <ComingSoonFooter />
+
+  <!-- Subtle Floating Concierge WhatsApp -->
+  <WhatsAppFloating />
+</ComingSoonLayout>

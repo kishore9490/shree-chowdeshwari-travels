@@ -1,0 +1,245 @@
+---
+// NotifyModal.astro - Modern 2026 VIP Early Access Modal
+---
+
+<!-- Trigger Button -->
+<div class="flex flex-col items-center justify-center mt-2 sm:mt-4">
+  <button
+    id="open-notify-modal-btn"
+    type="button"
+    class="group relative inline-flex items-center gap-3 px-8 sm:px-12 py-4 sm:py-5 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-heading font-extrabold text-xs sm:text-sm uppercase tracking-[0.2em] shadow-[0_12px_40px_rgba(245,158,11,0.4)] hover:shadow-[0_18px_60px_rgba(245,158,11,0.65)] hover:scale-105 active:scale-95 transition-all duration-300"
+  >
+    <span>Be The First To Know</span>
+    <span class="inline-block transform group-hover:translate-x-1.5 transition-transform duration-300">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </span>
+  </button>
+  <span class="mt-2.5 text-[11px] text-slate-400 tracking-widest uppercase font-mono-tech">
+    ✦ Exclusive Launch Privileges & Priority Bookings ✦
+  </span>
+</div>
+
+<!-- Modal Overlay -->
+<div
+  id="notify-modal"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 ease-out"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+>
+  <!-- Modal Card -->
+  <div
+    id="notify-modal-card"
+    class="relative w-full max-w-lg glass-gold-panel rounded-3xl p-6 sm:p-9 shadow-2xl transform scale-95 transition-all duration-500 ease-out"
+  >
+    <!-- Close button -->
+    <button
+      id="close-notify-modal-btn"
+      type="button"
+      aria-label="Close modal"
+      class="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Header with Brand Logo -->
+    <div class="text-center mb-6">
+      <div class="w-16 h-16 mx-auto mb-3 p-1 rounded-2xl bg-white shadow-xl flex items-center justify-center">
+        <img src="/images/sct-logo-transparent.png" alt="Logo" class="w-full h-full object-contain" onerror="this.src='/sct-logo.jpg'" />
+      </div>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-[10px] font-mono-tech tracking-widest uppercase mb-2">
+        <span>✦</span> Priority Guestlist
+      </div>
+      <h3 class="font-heading text-2xl sm:text-3xl text-white font-bold tracking-tight">
+        Be The First To Know
+      </h3>
+      <p class="text-xs text-slate-300 mt-1.5 font-normal leading-relaxed">
+        Join our VIP circle to receive personal invitations before the public launch on 29 September 2026.
+      </p>
+    </div>
+
+    <!-- Form Section -->
+    <form id="notify-form" class="space-y-4">
+      <div>
+        <label for="notify-name" class="block text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-200 mb-1.5 font-mono-tech">
+          Full Name
+        </label>
+        <input
+          type="text"
+          id="notify-name"
+          name="name"
+          required
+          placeholder="e.g. Ramesh Chandra"
+          class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
+        />
+      </div>
+
+      <div>
+        <label for="notify-phone" class="block text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-200 mb-1.5 font-mono-tech">
+          Mobile / WhatsApp Number
+        </label>
+        <input
+          type="tel"
+          id="notify-phone"
+          name="phone"
+          required
+          placeholder="+91 98450 12345"
+          class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
+        />
+      </div>
+
+      <div>
+        <label for="notify-email" class="block text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-200 mb-1.5 font-mono-tech">
+          Email Address
+        </label>
+        <input
+          type="email"
+          id="notify-email"
+          name="email"
+          required
+          placeholder="ramesh@example.com"
+          class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/15 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
+        />
+      </div>
+
+      <button
+        type="submit"
+        id="submit-notify-btn"
+        class="w-full mt-2 py-4 px-6 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-heading font-extrabold text-xs uppercase tracking-[0.2em] shadow-lg hover:brightness-110 active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+      >
+        <span id="submit-btn-text">Notify Me</span>
+        <svg id="submit-spinner" class="hidden animate-spin h-4 w-4 text-slate-950" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </button>
+
+      <p class="text-[10px] text-center text-slate-400 mt-2">
+        We respect your privacy. No spam. Only inaugural launch invitations.
+      </p>
+    </form>
+
+    <!-- Success Feedback State -->
+    <div id="notify-success" class="hidden text-center py-6">
+      <div class="w-16 h-16 mx-auto rounded-full bg-amber-400/20 border border-amber-400/50 flex items-center justify-center text-amber-300 mb-4 shadow-xl">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+
+      <h4 class="font-heading text-2xl sm:text-3xl text-white font-bold">
+        You're on the list.
+      </h4>
+      <p class="text-base text-amber-300 mt-2 font-medium font-signature">
+        We'll see you on 29 September.
+      </p>
+
+      <p class="text-xs text-slate-300 mt-4 max-w-xs mx-auto leading-relaxed">
+        Your inaugural invitation has been reserved with Shree Chowdeshwari Tours & Travels.
+      </p>
+
+      <button
+        id="dismiss-success-btn"
+        type="button"
+        class="mt-6 px-8 py-2.5 rounded-full bg-amber-400/20 hover:bg-amber-400/30 border border-amber-400/40 text-xs font-semibold tracking-wider text-amber-300 transition-colors"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('notify-modal');
+  const modalCard = document.getElementById('notify-modal-card');
+  const openBtn = document.getElementById('open-notify-modal-btn');
+  const closeBtn = document.getElementById('close-notify-modal-btn');
+  const dismissBtn = document.getElementById('dismiss-success-btn');
+  const notifyForm = document.getElementById('notify-form') as HTMLFormElement;
+  const successState = document.getElementById('notify-success');
+  const submitBtn = document.getElementById('submit-notify-btn');
+  const btnText = document.getElementById('submit-btn-text');
+  const spinner = document.getElementById('submit-spinner');
+
+  function openModal() {
+    if (!modal || !modalCard) return;
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modal.classList.add('opacity-100', 'pointer-events-auto');
+    modalCard.classList.remove('scale-95');
+    modalCard.classList.add('scale-100');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (!modal || !modalCard) return;
+    modal.classList.remove('opacity-100', 'pointer-events-auto');
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modalCard.classList.remove('scale-100');
+    modalCard.classList.add('scale-95');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target && target.closest('.trigger-notify-modal')) {
+      openModal();
+    }
+  });
+
+  if (openBtn) openBtn.addEventListener('click', openModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (dismissBtn) dismissBtn.addEventListener('click', closeModal);
+
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('opacity-0')) {
+      closeModal();
+    }
+  });
+
+  if (notifyForm) {
+    notifyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = (document.getElementById('notify-name') as HTMLInputElement)?.value;
+      const phone = (document.getElementById('notify-phone') as HTMLInputElement)?.value;
+      const email = (document.getElementById('notify-email') as HTMLInputElement)?.value;
+
+      if (!name || !phone || !email) return;
+
+      if (btnText && spinner && submitBtn) {
+        btnText.textContent = 'Securing VIP Spot...';
+        spinner.classList.remove('hidden');
+        (submitBtn as HTMLButtonElement).disabled = true;
+      }
+
+      setTimeout(() => {
+        try {
+          const list = JSON.parse(localStorage.getItem('sct_vip_subscribers') || '[]');
+          list.push({ name, phone, email, date: new Date().toISOString() });
+          localStorage.setItem('sct_vip_subscribers', JSON.stringify(list));
+        } catch (err) {}
+
+        if (notifyForm && successState) {
+          notifyForm.classList.add('hidden');
+          successState.classList.remove('hidden');
+        }
+
+        if (btnText && spinner && submitBtn) {
+          btnText.textContent = 'Notify Me';
+          spinner.classList.add('hidden');
+          (submitBtn as HTMLButtonElement).disabled = false;
+        }
+      }, 600);
+    });
+  }
+</script>

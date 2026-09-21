@@ -1,0 +1,114 @@
+---
+import { mockDatabase } from '../../../../backend/src/data/mockDatabase';
+
+const trips = mockDatabase.trips;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Trip Dispatch Board | Shree Chowdeshwari Travels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #060B18; color: #F8F9FA; }
+      .font-serif { font-family: 'Playfair Display', serif; }
+      .font-mono { font-family: 'JetBrains Mono', monospace; }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col antialiased">
+    <!-- Top Bar -->
+    <header class="bg-[#0A1128] border-b border-slate-800 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+      <div class="flex items-center gap-4">
+        <a href="/admin" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 p-0.5">
+            <div class="w-full h-full bg-[#0A1128] rounded-[6px] flex items-center justify-center font-serif font-bold text-amber-400 text-sm">
+              SCT
+            </div>
+          </div>
+          <div>
+            <span class="font-serif font-bold text-sm text-white block">SHREE CHOWDESHWARI</span>
+            <span class="text-[9px] uppercase tracking-wider text-amber-400 font-semibold block">LIVE TRIP DISPATCH</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-1 text-xs">
+        <a href="/admin" class="px-3.5 py-2 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+          Executive Overview
+        </a>
+        <a href="/admin/leads" class="px-3.5 py-2 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+          CRM &amp; Leads Kanban
+        </a>
+        <a href="/admin/fleet" class="px-3.5 py-2 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+          Fleet &amp; Drivers
+        </a>
+        <a href="/admin/dispatch" class="px-3.5 py-2 bg-amber-400/10 text-amber-400 font-bold rounded-lg border border-amber-500/30">
+          Live Dispatch
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="/" class="text-xs text-slate-400 hover:text-white">&larr; Public Site</a>
+      </div>
+    </header>
+
+    <main class="flex-grow p-6 sm:p-8 max-w-7xl mx-auto w-full space-y-8">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="font-serif font-black text-2xl text-white">Live Outstation Dispatch &amp; Trip Roster</h1>
+          <p class="text-xs text-slate-400 mt-1">Real-time driver assignments, pickup telemetry and route profitability</p>
+        </div>
+      </div>
+
+      <!-- Active Trips Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {trips.map(trip => (
+          <div class="rounded-3xl bg-[#0A1128] border border-slate-800 hover:border-amber-500/40 p-6 shadow-xl space-y-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="font-mono text-xs text-amber-400 font-bold block">{trip.tripCode}</span>
+                <span class="text-[10px] text-slate-400 font-mono">Ref: {trip.bookingReference}</span>
+              </div>
+              <span class={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                trip.status === 'IN_PROGRESS' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 animate-pulse' :
+                'bg-blue-500/20 text-blue-400 border border-blue-500/40'
+              }`}>
+                {trip.status}
+              </span>
+            </div>
+
+            <h3 class="font-serif font-bold text-lg text-white">{trip.tourTitle}</h3>
+
+            <div class="grid grid-cols-2 gap-3 text-xs p-3.5 rounded-xl bg-[#060B18] border border-slate-800/80">
+              <div>
+                <span class="text-slate-400 block text-[10px]">Customer:</span>
+                <strong class="text-white">{trip.customerName}</strong>
+              </div>
+              <div>
+                <span class="text-slate-400 block text-[10px]">Vehicle:</span>
+                <strong class="text-amber-400">{trip.vehicleReg}</strong>
+              </div>
+              <div>
+                <span class="text-slate-400 block text-[10px]">Chauffeur:</span>
+                <strong class="text-white">{trip.driverName}</strong>
+              </div>
+              <div>
+                <span class="text-slate-400 block text-[10px]">Est. Profit:</span>
+                <strong class="text-emerald-400 font-serif">₹{trip.estimatedProfit.toLocaleString('en-IN')}</strong>
+              </div>
+            </div>
+
+            <div class="pt-2 flex justify-between items-center text-xs text-slate-400">
+              <span>📍 {trip.pickupLocation}</span>
+              <button class="text-amber-400 font-semibold hover:underline">
+                Trip Telemetry &rarr;
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </main>
+  </body>
+</html>

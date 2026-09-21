@@ -1,0 +1,132 @@
+---
+// Premium Divine Animated Logo Preloader for Shree Chowdeshwari Tours & Travels
+---
+
+<div
+  id="brand-preloader"
+  class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#070B18] text-white transition-all duration-700 ease-out"
+  aria-hidden="true"
+>
+  <!-- Ambient Gold & Radial Spotlights -->
+  <div class="absolute w-[600px] h-[600px] bg-gradient-to-tr from-amber-500/20 via-yellow-400/15 to-transparent rounded-full blur-[130px] pointer-events-none animate-pulse"></div>
+  <div class="absolute w-[450px] h-[450px] bg-blue-600/15 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="relative z-10 flex flex-col items-center text-center px-4 max-w-lg mx-auto">
+    
+    <!-- Central Divine Logo Emblem on Illuminated White Glass Canvas for Maximum Visibility -->
+    <div class="relative mb-6">
+      <!-- Golden Radiant Halo Ring -->
+      <div class="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-amber-400/40 via-yellow-400/30 to-amber-600/20 blur-xl animate-pulse pointer-events-none"></div>
+
+      <!-- Pure White Illuminated Glass Plinth to make dark navy & gold logo 100% visible -->
+      <div class="relative w-72 sm:w-80 p-5 rounded-3xl bg-white shadow-[0_12px_40px_rgba(245,158,11,0.35)] border-2 border-amber-400/40 flex items-center justify-center overflow-hidden animate-divine-float">
+        <img
+          src="/images/logo.png"
+          alt="Shree Chowdeshwari Tours and Travels Official Logo"
+          class="w-full h-auto object-contain"
+        />
+        <!-- Elegant Golden Light Sweep Across Logo -->
+        <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-amber-300/40 to-transparent animate-logo-shimmer pointer-events-none"></div>
+      </div>
+    </div>
+
+    <!-- Divine Tagline & Animated Progress -->
+    <div class="space-y-4 mt-2">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-xs sm:text-sm font-semibold tracking-wide text-amber-300">
+        <span>✨</span>
+        <span>Journeys with Divine Blessings</span>
+        <span>✨</span>
+      </div>
+
+      <!-- Visible, Elegant Golden Progress Bar (2.5s duration) -->
+      <div class="w-56 sm:w-64 mx-auto space-y-2">
+        <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden p-[1px] border border-white/20">
+          <div id="preloader-bar" class="h-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 rounded-full w-0 transition-all duration-150 ease-out shadow-[0_0_12px_rgba(251,191,36,0.9)]"></div>
+        </div>
+        <p id="preloader-status-text" class="text-xs font-mono text-slate-300 tracking-wider">
+          Connecting your luxury journey...
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  @keyframes divineFloat {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+    }
+    50% {
+      transform: translateY(-6px) scale(1.02);
+    }
+  }
+
+  @keyframes logoShimmer {
+    0% {
+      transform: translateX(-150%) skewX(-20deg);
+    }
+    50%, 100% {
+      transform: translateX(200%) skewX(-20deg);
+    }
+  }
+
+  .animate-divine-float {
+    animation: divineFloat 3.2s ease-in-out infinite;
+  }
+
+  .animate-logo-shimmer {
+    animation: logoShimmer 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    const preloader = document.getElementById('brand-preloader');
+    const bar = document.getElementById('preloader-bar');
+    const statusText = document.getElementById('preloader-status-text');
+
+    if (!preloader || !bar) return;
+
+    let progress = 0;
+    const duration = 2400; // 2.4 seconds total animation duration
+    const stepTime = 40;
+    const increment = 100 / (duration / stepTime);
+
+    const interval = setInterval(() => {
+      progress += increment;
+      if (progress > 100) progress = 100;
+
+      bar.style.width = Math.min(progress, 100) + '%';
+
+      if (progress > 30 && progress < 70 && statusText) {
+        statusText.textContent = "Loading verified luxury fleet...";
+      } else if (progress >= 70 && progress < 95 && statusText) {
+        statusText.textContent = "Welcome to Shree Chowdeshwari Travels";
+      }
+
+      if (progress >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          preloader.style.opacity = '0';
+          preloader.style.transform = 'scale(1.02)';
+          preloader.style.pointerEvents = 'none';
+          setTimeout(() => {
+            preloader.style.display = 'none';
+          }, 700);
+        }, 350);
+      }
+    }, stepTime);
+
+    // Failsafe timeout: maximum 3.5 seconds
+    setTimeout(() => {
+      if (preloader && preloader.style.display !== 'none') {
+        preloader.style.opacity = '0';
+        preloader.style.pointerEvents = 'none';
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 400);
+      }
+    }, 3500);
+  })();
+</script>

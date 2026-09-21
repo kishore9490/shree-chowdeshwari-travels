@@ -1,0 +1,310 @@
+---
+// Instant Journey Architect & Cost Simulator Component (Clean Bright Theme)
+---
+
+<section id="journey-architect" class="py-16 sm:py-24 bg-white relative overflow-hidden border-t border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-mono font-bold uppercase text-blue-700">
+        ✦ Live Instant Tour &amp; Cab Cost Calculator
+      </div>
+      <h2 class="font-bold text-3xl sm:text-5xl text-slate-900 tracking-tight leading-[1.15]">
+        Calculate Your Custom Trip Price
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto">
+        Select your travel style, days &amp; vehicle. View transparent pricing, daily route plan, and 25% token advance in real-time.
+      </p>
+    </div>
+
+    <!-- Main Configurator Card -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <!-- Left Controls (7 Cols) -->
+      <div class="lg:col-span-7 rounded-3xl bg-slate-50 p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+        <!-- 1. Origin Selection -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">
+            1. Select Starting City:
+          </label>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="origin-selector-grid">
+            <button class="cfg-origin-btn p-3 rounded-xl border text-xs font-bold text-left transition-all bg-blue-600 text-white border-transparent shadow-sm" data-origin="BLR_AIRPORT">
+              ✈ Bangalore Airport (BLR)
+            </button>
+            <button class="cfg-origin-btn p-3 rounded-xl border text-xs font-medium text-left transition-all bg-white text-slate-700 border-slate-200 hover:border-blue-400" data-origin="BLR_CITY">
+              🏙 Bangalore City
+            </button>
+            <button class="cfg-origin-btn p-3 rounded-xl border text-xs font-medium text-left transition-all bg-white text-slate-700 border-slate-200 hover:border-blue-400" data-origin="MYSORE">
+              👑 Mysore Hub
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Tour Circuit Mood -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">
+            2. Choose Holiday Circuit:
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="mood-selector-grid">
+            <button class="cfg-mood-btn p-3.5 rounded-xl border text-left transition-all bg-white border-blue-600 shadow-sm ring-2 ring-blue-500/20" data-mood="ROYAL" data-base="8500" data-rate="4200">
+              <span class="text-blue-700 font-bold text-sm block">👑 Mysore &amp; Heritage Palaces</span>
+              <span class="text-[11px] text-slate-500 block">Mysore &bull; Srirangapatna &bull; Hampi</span>
+            </button>
+            <button class="cfg-mood-btn p-3.5 rounded-xl border text-left transition-all bg-white border-slate-200 text-slate-700 hover:border-blue-400" data-mood="HIGHLAND" data-base="9200" data-rate="4600">
+              <span class="text-slate-900 font-bold text-sm block">🌿 Coorg &amp; Ooty Highlands</span>
+              <span class="text-[11px] text-slate-500 block">Coorg &bull; Ooty &bull; Chikmagalur</span>
+            </button>
+            <button class="cfg-mood-btn p-3.5 rounded-xl border text-left transition-all bg-white border-slate-200 text-slate-700 hover:border-blue-400" data-mood="COASTAL" data-base="9800" data-rate="4900">
+              <span class="text-slate-900 font-bold text-sm block">🌊 Kerala Backwaters &amp; Munnar</span>
+              <span class="text-[11px] text-slate-500 block">Alleppey Houseboat &bull; Munnar</span>
+            </button>
+            <button class="cfg-mood-btn p-3.5 rounded-xl border text-left transition-all bg-white border-slate-200 text-slate-700 hover:border-blue-400" data-mood="PILGRIM" data-base="7800" data-rate="3800">
+              <span class="text-slate-900 font-bold text-sm block">🛕 Sacred Temple Darshan</span>
+              <span class="text-[11px] text-slate-500 block">Tirupati VIP &bull; Rameshwaram</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Duration Slider -->
+        <div class="space-y-2 bg-white p-4 rounded-2xl border border-slate-200">
+          <div class="flex justify-between items-center">
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-600">
+              3. Trip Duration:
+            </label>
+            <span id="cfg-days-label" class="text-base font-bold text-blue-600">
+              5 Days / 4 Nights
+            </span>
+          </div>
+          <input
+            id="cfg-days-slider"
+            type="range"
+            min="3"
+            max="12"
+            step="1"
+            value="5"
+            class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+          />
+          <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+            <span>3 Days (Weekend)</span>
+            <span>5-7 Days (Popular)</span>
+            <span>12 Days (Grand)</span>
+          </div>
+        </div>
+
+        <!-- 4. Vehicle Selection -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">
+            4. Select Chauffeur Vehicle:
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" id="vehicle-selector-grid">
+            <button class="cfg-vehicle-btn p-3 rounded-xl border text-left transition-all bg-white border-blue-600 shadow-sm ring-2 ring-blue-500/20" data-veh="INNOVA" data-multiplier="1.0" data-name="Toyota Innova Crysta ZX">
+              <span class="text-xs font-bold text-blue-700 block">Innova Crysta ZX</span>
+              <span class="text-[10px] text-slate-500">6+1 Captain Seats</span>
+            </button>
+            <button class="cfg-vehicle-btn p-3 rounded-xl border text-left transition-all bg-white border-slate-200 text-slate-700 hover:border-blue-400" data-veh="URBANIA" data-multiplier="1.45" data-name="Force Urbania Maharaja">
+              <span class="text-xs font-bold text-slate-900 block">Force Urbania</span>
+              <span class="text-[10px] text-slate-500">12+1 Seater Van</span>
+            </button>
+            <button class="cfg-vehicle-btn p-3 rounded-xl border text-left transition-all bg-white border-slate-200 text-slate-700 hover:border-blue-400" data-veh="FORTUNER" data-multiplier="1.35" data-name="Toyota Fortuner 4x4">
+              <span class="text-xs font-bold text-slate-900 block">Fortuner 4x4</span>
+              <span class="text-[10px] text-slate-500">Mountain 4WD</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Output Card (5 Cols) -->
+      <div class="lg:col-span-5 rounded-3xl bg-slate-900 text-white p-6 sm:p-8 shadow-2xl flex flex-col justify-between space-y-6">
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-amber-400 font-bold">Estimated Quote</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">
+              ALL INCLUSIVE
+            </span>
+          </div>
+          <h3 id="cfg-summary-title" class="font-bold text-xl sm:text-2xl text-white">
+            5-Day Mysore &amp; Heritage Circuit
+          </h3>
+          <p id="cfg-summary-route" class="text-xs text-slate-300 font-normal">
+            Bangalore ➔ Srirangapatna ➔ Mysore Palace ➔ Chamundi Hills ➔ Bangalore Return
+          </p>
+        </div>
+
+        <!-- Inclusions -->
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2 text-xs">
+          <div class="flex items-center justify-between text-slate-200">
+            <span>✓ Dedicated Chauffeur &amp; Fuel</span>
+            <span class="text-emerald-400 font-mono font-bold">INCLUDED</span>
+          </div>
+          <div class="flex items-center justify-between text-slate-200">
+            <span>✓ Interstate Permit &amp; All Tolls</span>
+            <span class="text-emerald-400 font-mono font-bold">INCLUDED</span>
+          </div>
+          <div class="flex items-center justify-between text-slate-200">
+            <span>✓ Chilled Water &amp; Onboard Wi-Fi</span>
+            <span class="text-emerald-400 font-mono font-bold">INCLUDED</span>
+          </div>
+        </div>
+
+        <!-- Pricing Output Box -->
+        <div class="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-2">
+          <div class="flex justify-between items-baseline">
+            <span class="text-xs text-slate-300">Total Estimated Trip:</span>
+            <span id="cfg-total-cost" class="text-2xl sm:text-3xl font-black text-amber-400">
+              ₹29,500
+            </span>
+          </div>
+          <div class="flex justify-between items-baseline pt-2 border-t border-white/10">
+            <div>
+              <span class="text-xs font-bold text-emerald-400 block">25% Advance to Lock:</span>
+              <span class="text-[10px] text-slate-400">Pay remaining on trip start</span>
+            </div>
+            <span id="cfg-token-cost" class="font-mono text-lg font-bold text-white">
+              ₹7,375
+            </span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="space-y-2.5">
+          <a
+            href="/plan-your-trip"
+            class="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95"
+          >
+            <span>Lock In Dates with 25% Advance</span>
+            <span>→</span>
+          </a>
+
+          <a
+            id="cfg-whatsapp-btn"
+            href="https://wa.me/919845012345"
+            target="_blank"
+            rel="noopener"
+            class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md"
+          >
+            <span>💬 WhatsApp This Quote Instantly</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trip Configurator Real-time Math Script -->
+<script>
+  let selectedOrigin = "BLR_AIRPORT";
+  let selectedMood = "ROYAL";
+  let selectedDays = 5;
+  let selectedVehicle = "INNOVA";
+  let vehicleMultiplier = 1.0;
+  let vehicleName = "Toyota Innova Crysta ZX";
+
+  const daysSlider = document.getElementById('cfg-days-slider') as HTMLInputElement;
+  const daysLabel = document.getElementById('cfg-days-label');
+  const summaryTitle = document.getElementById('cfg-summary-title');
+  const summaryRoute = document.getElementById('cfg-summary-route');
+  const totalCostEl = document.getElementById('cfg-total-cost');
+  const tokenCostEl = document.getElementById('cfg-token-cost');
+  const whatsappBtn = document.getElementById('cfg-whatsapp-btn') as HTMLAnchorElement;
+
+  const moodRoutes: Record<string, { title: string; route: string; base: number; rate: number }> = {
+    ROYAL: {
+      title: "Mysore & Heritage Palaces Circuit",
+      route: "Bangalore ➔ Srirangapatna ➔ Mysore Palace ➔ Chamundi Hills ➔ Bangalore Return",
+      base: 8500,
+      rate: 4200
+    },
+    HIGHLAND: {
+      title: "Coorg & Ooty Highland Expedition",
+      route: "Bangalore ➔ Madikeri Coffee Groves ➔ Mandalpatti 4x4 ➔ Abbey Falls ➔ Bangalore Return",
+      base: 9200,
+      rate: 4600
+    },
+    COASTAL: {
+      title: "Kerala Backwaters & Munnar Tea Sanctuary",
+      route: "Bangalore ➔ Munnar Tea Valleys ➔ Alleppey Private Houseboat ➔ Kochi Return",
+      base: 9800,
+      rate: 4900
+    },
+    PILGRIM: {
+      title: "Sacred South Divine Darshan Trail",
+      route: "Bangalore ➔ Tirupati Balaji VIP ➔ Kanipakam ➔ Golden Temple Vellore ➔ Bangalore Return",
+      base: 7800,
+      rate: 3800
+    }
+  };
+
+  function updateCalculation() {
+    const moodData = moodRoutes[selectedMood];
+    if (!moodData) return;
+
+    const total = Math.round((moodData.base + (selectedDays - 1) * moodData.rate) * vehicleMultiplier);
+    const token = Math.round(total * 0.25);
+
+    if (daysLabel) daysLabel.textContent = `${selectedDays} Days / ${selectedDays - 1} Nights`;
+    if (summaryTitle) summaryTitle.textContent = `${selectedDays}-Day ${moodData.title}`;
+    if (summaryRoute) summaryRoute.textContent = moodData.route;
+    if (totalCostEl) totalCostEl.textContent = `₹${total.toLocaleString('en-IN')}`;
+    if (tokenCostEl) tokenCostEl.textContent = `₹${token.toLocaleString('en-IN')}`;
+
+    if (whatsappBtn) {
+      const msg = encodeURIComponent(`Hello Shree Chowdeshwari Team, I calculated a ${selectedDays}-Day ${moodData.title} in a ${vehicleName}. Total: ₹${total.toLocaleString('en-IN')} (25% token: ₹${token.toLocaleString('en-IN')}). Please share details!`);
+      whatsappBtn.href = `https://wa.me/919845012345?text=${msg}`;
+    }
+  }
+
+  // Origin Buttons
+  const originBtns = document.querySelectorAll('.cfg-origin-btn');
+  originBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      selectedOrigin = target.dataset.origin || "BLR_AIRPORT";
+      originBtns.forEach(b => {
+        b.className = 'cfg-origin-btn p-3 rounded-xl border text-xs font-medium text-left transition-all bg-white text-slate-700 border-slate-200 hover:border-blue-400';
+      });
+      target.className = 'cfg-origin-btn p-3 rounded-xl border text-xs font-bold text-left transition-all bg-blue-600 text-white border-transparent shadow-sm';
+      updateCalculation();
+    });
+  });
+
+  // Mood Buttons
+  const moodBtns = document.querySelectorAll('.cfg-mood-btn');
+  moodBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      selectedMood = target.dataset.mood || "ROYAL";
+      moodBtns.forEach(b => {
+        b.className = 'cfg-mood-btn p-3.5 rounded-xl border text-left transition-all bg-white border-slate-200 text-slate-700 hover:border-blue-400';
+      });
+      target.className = 'cfg-mood-btn p-3.5 rounded-xl border text-left transition-all bg-white border-blue-600 shadow-sm ring-2 ring-blue-500/20';
+      updateCalculation();
+    });
+  });
+
+  // Days Slider
+  if (daysSlider) {
+    daysSlider.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      selectedDays = parseInt(target.value);
+      updateCalculation();
+    });
+  }
+
+  // Vehicle Buttons
+  const vehicleBtns = document.querySelectorAll('.cfg-vehicle-btn');
+  vehicleBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      selectedVehicle = target.dataset.veh || "INNOVA";
+      vehicleMultiplier = parseFloat(target.dataset.multiplier || "1.0");
+      vehicleName = target.dataset.name || "Toyota Innova Crysta ZX";
+      vehicleBtns.forEach(b => {
+        b.className = 'cfg-vehicle-btn p-3 rounded-xl border text-left transition-all bg-white border-slate-200 text-slate-700 hover:border-blue-400';
+      });
+      target.className = 'cfg-vehicle-btn p-3 rounded-xl border text-left transition-all bg-white border-blue-600 shadow-sm ring-2 ring-blue-500/20';
+      updateCalculation();
+    });
+  });
+
+  // Init
+  updateCalculation();
+</script>

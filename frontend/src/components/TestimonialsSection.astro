@@ -1,0 +1,56 @@
+---
+import { mockDatabase } from '../../../backend/src/data/mockDatabase';
+
+const reviews = mockDatabase.reviews;
+---
+
+<section class="py-16 sm:py-24 bg-slate-50 border-t border-slate-200 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-mono font-bold uppercase text-emerald-700">
+        ★ 4.95 Google Rating &bull; 2,450+ Verified Reviews
+      </div>
+      <h2 class="font-bold text-3xl sm:text-5xl text-slate-900 tracking-tight leading-[1.15]">
+        Loved by 50,000+ Travelers
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto">
+        Read genuine feedback from families, couples, and corporate groups who toured South India with our verified chauffeurs.
+      </p>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {reviews.map(review => (
+        <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between space-y-5">
+          <div class="space-y-3">
+            <!-- 5 Stars -->
+            <div class="flex items-center gap-1 text-amber-400 text-sm">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              <span class="text-xs font-bold text-slate-700 ml-1">5.0</span>
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed font-normal">
+              "{review.comment}"
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center gap-3">
+            <img
+              src={review.avatar}
+              alt={review.customerName}
+              class="w-10 h-10 rounded-full object-cover border border-slate-200"
+            />
+            <div>
+              <h4 class="font-bold text-sm text-slate-900 leading-tight">
+                {review.customerName}
+              </h4>
+              <p class="text-[11px] text-slate-500 font-medium mt-0.5">
+                {review.tour} &bull; {review.location}
+              </p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

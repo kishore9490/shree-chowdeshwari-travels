@@ -1,0 +1,241 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Bespoke Trip Architect | Shree Chowdeshwari Travels"
+  description="Design your personalized luxury journey. Choose your destination, preferred vehicle class, and hotel tier for a custom proposal."
+>
+  <!-- Header -->
+  <section class="pt-36 pb-16 bg-[#FAF8F5] border-b border-[#E8E2D6] text-left">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <span class="text-xs uppercase tracking-[0.25em] font-bold text-[#8C733E] block mb-3">
+        Bespoke Itinerary Studio
+      </span>
+      <h1 class="font-serif font-light text-4xl sm:text-6xl text-[#171717] tracking-tight leading-[1.05] mb-4">
+        Your Journey.<br /><span class="font-editorial italic">Your Way.</span>
+      </h1>
+      <p class="text-sm sm:text-base text-[#6B7280] font-light leading-relaxed">
+        Tell us about your travel dates, preferred destinations, and style. Our senior trip architect will curate a tailored proposal with private chauffeured transport within 2 hours.
+      </p>
+    </div>
+  </section>
+
+  <!-- Multi-step Form -->
+  <section class="py-16 sm:py-24 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <form id="plan-trip-form" class="space-y-16">
+        <!-- Step 1: Destinations -->
+        <div class="space-y-6">
+          <div class="flex items-baseline gap-3 border-b border-[#E8E2D6] pb-3">
+            <span class="font-serif font-light text-3xl text-[#B89B5E]">01</span>
+            <h2 class="font-serif text-2xl text-[#171717] font-normal">Select Destinations of Interest</h2>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {[
+              { name: "Mysore & Coorg", tag: "Karnataka Classic" },
+              { name: "Ooty & Nilgiris", tag: "Hill Station" },
+              { name: "Chikmagalur", tag: "Coffee Highlands" },
+              { name: "Hampi & Badami", tag: "UNESCO Heritage" },
+              { name: "Kerala Backwaters", tag: "Houseboats & Tea" },
+              { name: "Kashmir Valley", tag: "Snow & Lakes" },
+              { name: "Himachal & Manali", tag: "Alpine Peaks" },
+              { name: "Goa Coast", tag: "Sun & Heritage" },
+              { name: "Dubai & Abu Dhabi", tag: "International" },
+            ].map(dest => (
+              <label class="cursor-pointer border border-[#E8E2D6] rounded-2xl p-4 bg-white hover:border-[#171717] transition-all flex flex-col justify-between has-[:checked]:border-[#171717] has-[:checked]:bg-[#F6F2EA] shadow-subtle">
+                <input type="checkbox" name="destinations" value={dest.name} class="sr-only" />
+                <span class="text-xs font-semibold text-[#171717] block">{dest.name}</span>
+                <span class="text-[10px] text-[#8C733E] mt-1 block font-light">{dest.tag}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- Step 2: Dates & Party -->
+        <div class="space-y-6">
+          <div class="flex items-baseline gap-3 border-b border-[#E8E2D6] pb-3">
+            <span class="font-serif font-light text-3xl text-[#B89B5E]">02</span>
+            <h2 class="font-serif text-2xl text-[#171717] font-normal">Travel Timeline &amp; Party Size</h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Departure Date</label>
+              <input
+                type="date"
+                name="travelDate"
+                required
+                class="w-full bg-white text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+              />
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Duration (Days)</label>
+              <select
+                name="durationDays"
+                class="w-full bg-white text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+              >
+                <option value="3">3 Days (Weekend Break)</option>
+                <option value="4" selected>4 Days (Classic Holiday)</option>
+                <option value="5">5 Days (Immersive)</option>
+                <option value="6">6 Days</option>
+                <option value="7">7+ Days Grand Circuit</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Party Size</label>
+              <select
+                name="travellersCount"
+                class="w-full bg-white text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+              >
+                <option value="2">2 Guests (Couple)</option>
+                <option value="4" selected>4 Guests (Family)</option>
+                <option value="6">6 Guests (Small Group)</option>
+                <option value="12">12 Guests (Urbania Group)</option>
+                <option value="25">25+ Guests (Executive Coach)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Vehicle & Accommodation Class -->
+        <div class="space-y-6">
+          <div class="flex items-baseline gap-3 border-b border-[#E8E2D6] pb-3">
+            <span class="font-serif font-light text-3xl text-[#B89B5E]">03</span>
+            <h2 class="font-serif text-2xl text-[#171717] font-normal">Vehicle Class &amp; Stay Tier</h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-2">Preferred Vehicle</label>
+              <div class="space-y-2">
+                {[
+                  { title: "Toyota Innova Crysta ZX", sub: "6-7 Seater Captain Seats Luxury AC" },
+                  { title: "Toyota Fortuner 4x4", sub: "VIP Mountain Expedition" },
+                  { title: "Force Urbania Luxury", sub: "12 / 17 Seater Executive Van" }
+                ].map((v, i) => (
+                  <label class="cursor-pointer border border-[#E8E2D6] rounded-2xl p-4 bg-white hover:border-[#171717] transition-all flex items-center justify-between has-[:checked]:border-[#171717] has-[:checked]:bg-[#F6F2EA] shadow-subtle">
+                    <div>
+                      <span class="text-xs font-semibold text-[#171717] block">{v.title}</span>
+                      <span class="text-[10px] text-[#6B7280] block font-light">{v.sub}</span>
+                    </div>
+                    <input type="radio" name="vehicleClass" value={v.title} checked={i === 0} class="text-[#171717]" />
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-2">Accommodation Preference</label>
+              <div class="space-y-2">
+                {[
+                  { title: "4-Star Premium Resorts", sub: "Boutique hillside resorts with panoramic dining" },
+                  { title: "5-Star & Heritage Palaces", sub: "Taj, IHCL & royal estate sanctuaries" },
+                  { title: "3-Star Deluxe Stays", sub: "Comfortable, sanitized boutique rooms" }
+                ].map((h, i) => (
+                  <label class="cursor-pointer border border-[#E8E2D6] rounded-2xl p-4 bg-white hover:border-[#171717] transition-all flex items-center justify-between has-[:checked]:border-[#171717] has-[:checked]:bg-[#F6F2EA] shadow-subtle">
+                    <div>
+                      <span class="text-xs font-semibold text-[#171717] block">{h.title}</span>
+                      <span class="text-[10px] text-[#6B7280] block font-light">{h.sub}</span>
+                    </div>
+                    <input type="radio" name="hotelTier" value={h.title} checked={i === 0} class="text-[#171717]" />
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Contact & Dispatch -->
+        <div class="space-y-6">
+          <div class="flex items-baseline gap-3 border-b border-[#E8E2D6] pb-3">
+            <span class="font-serif font-light text-3xl text-[#B89B5E]">04</span>
+            <h2 class="font-serif text-2xl text-[#171717] font-normal">Contact &amp; Personal Notes</h2>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Full Name *</label>
+              <input
+                type="text"
+                name="fullName"
+                required
+                placeholder="e.g. Rameshwar Rao"
+                class="w-full bg-white text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+              />
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Mobile / WhatsApp *</label>
+              <input
+                type="tel"
+                name="phone"
+                required
+                placeholder="+91 98450 12345"
+                class="w-full bg-white text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+              />
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="name@gmail.com"
+                class="w-full bg-white text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+              />
+            </div>
+          </div>
+
+          <div class="pt-4">
+            <button
+              type="submit"
+              id="plan-submit-btn"
+              class="w-full py-4 rounded-full bg-[#171717] hover:bg-[#2E2E2E] text-white text-xs uppercase tracking-[0.18em] font-semibold transition-all shadow-lg"
+            >
+              Request Bespoke Itinerary Proposal
+            </button>
+            <div id="plan-success-box" class="hidden mt-6 p-6 rounded-2xl bg-white border border-[#2C3E2D] text-center shadow-subtle">
+              <h3 class="font-serif text-lg text-[#2C3E2D] mb-1">✓ Your Itinerary Request is Logged</h3>
+              <p class="text-xs text-[#6B7280] font-light">
+                Our Senior Holiday Specialist will share a comprehensive proposal on WhatsApp within 2 hours.
+              </p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('plan-trip-form') as HTMLFormElement;
+    const btn = document.getElementById('plan-submit-btn');
+    const box = document.getElementById('plan-success-box');
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (btn) btn.textContent = 'Curating...';
+
+        const formData = new FormData(form);
+        const selectedDests = formData.getAll('destinations').join(', ');
+
+        const payload = {
+          fullName: formData.get('fullName'),
+          phone: formData.get('phone'),
+          email: formData.get('email'),
+          destination: selectedDests || 'Custom Circuit',
+          travelDate: formData.get('travelDate'),
+          travellersCount: formData.get('travellersCount'),
+          source: 'Custom Trip Planner Page'
+        };
+
+        try {
+          await fetch('http://localhost:4000/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } catch {}
+
+        if (box) box.classList.remove('hidden');
+        if (btn) btn.textContent = 'Proposal Requested';
+      });
+    }
+  </script>
+</BaseLayout>

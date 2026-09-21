@@ -1,0 +1,187 @@
+---
+// Floating Capsule Header with Pixel-Perfect Alignment (No Overflow on Any Screen)
+interface Props {
+  darkNav?: boolean;
+}
+
+const { darkNav = false } = Astro.props;
+
+const navLinks = [
+  { name: 'Tour Packages', href: '/tours' },
+  { name: 'Destinations', href: '/destinations' },
+  { name: 'Outstation Cabs', href: '/plan-your-trip?service=cabs' },
+  { name: 'Luxury Fleet', href: '/fleet' },
+  { name: 'About Us', href: '/about' },
+  { name: 'Contact', href: '/contact' }
+];
+
+const pathname = Astro.url.pathname;
+---
+
+<!-- Floating Capsule Header Container -->
+<header id="floating-capsule-header" class="fixed top-3 sm:top-5 left-0 right-0 z-50 px-2 sm:px-4 lg:px-6 pointer-events-none transition-all duration-300">
+  <div
+    id="capsule-inner-bar"
+    class="max-w-[1340px] mx-auto rounded-full bg-white/95 backdrop-blur-2xl border border-slate-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.12)] px-3 sm:px-5 lg:px-6 h-16 sm:h-18 flex items-center justify-between gap-2 lg:gap-4 pointer-events-auto transition-all duration-500 ease-out"
+  >
+    
+    <!-- Left: Official Brand Logo -->
+    <a href="/" class="flex items-center gap-2 group shrink-0 pl-1 py-0.5" title="Shree Chowdeshwari Tours & Travels">
+      <img
+        src="/images/logo.png"
+        alt="Shree Chowdeshwari Tours & Travels"
+        class="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-sm"
+      />
+    </a>
+
+    <!-- Center: Perfectly Aligned & Spaced Single-Line Navigation Menu -->
+    <nav class="hidden lg:flex items-center justify-center gap-0.5 xl:gap-1.5 flex-nowrap shrink">
+      {navLinks.map(link => {
+        const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+        return (
+          <a
+            href={link.href}
+            class={`whitespace-nowrap px-2.5 xl:px-3.5 py-1.5 rounded-full text-xs xl:text-[13.5px] font-bold tracking-tight transition-all duration-200 flex items-center leading-none ${
+              isActive
+                ? 'bg-slate-900 text-white shadow-sm font-extrabold'
+                : 'text-slate-700 hover:text-slate-950 hover:bg-black/5'
+            }`}
+          >
+            {link.name}
+          </a>
+        );
+      })}
+    </nav>
+
+    <!-- Right: Quick Connect & Plan Journey CTA (Always perfectly inside capsule) -->
+    <div class="hidden sm:flex items-center gap-2 lg:gap-2.5 shrink-0 flex-nowrap pr-1">
+      <!-- 24/7 Helpline (Wide screens) -->
+      <a
+        href="tel:+919845012345"
+        class="hidden 2xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-800 transition-all whitespace-nowrap leading-none"
+        title="24/7 Chauffeur Helpline"
+      >
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+        <span class="whitespace-nowrap">+91 98450 12345</span>
+      </a>
+
+      <!-- WhatsApp Quick Button -->
+      <a
+        href="https://wa.me/919845012345?text=Hello%20Shree%20Chowdeshwari%20Tours%20%26%20Travels%2C%20I%20would%20like%20to%20plan%20a%20tour%20package%20%2F%20cab%20booking."
+        target="_blank"
+        rel="noopener"
+        class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white border border-emerald-200 text-xs font-bold transition-all shadow-sm whitespace-nowrap leading-none shrink-0"
+        title="Chat on WhatsApp"
+      >
+        <span>💬</span>
+        <span class="hidden md:inline whitespace-nowrap">WhatsApp</span>
+      </a>
+
+      <!-- Gold Luxury CTA Button (Positioned safely with right margin inside pill) -->
+      <a
+        href="/plan-your-trip"
+        class="px-4 lg:px-5 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-extrabold text-xs uppercase tracking-wider shadow-md shadow-amber-500/25 hover:shadow-amber-500/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-1 whitespace-nowrap leading-none shrink-0"
+      >
+        <span class="whitespace-nowrap">Plan Journey</span>
+        <span>→</span>
+      </a>
+    </div>
+
+    <!-- Mobile Drawer Hamburger Toggle -->
+    <button
+      type="button"
+      id="mobile-capsule-toggle"
+      aria-label="Open Navigation Menu"
+      class="lg:hidden p-2 mr-1 text-slate-700 hover:text-slate-950 hover:bg-black/5 rounded-full transition-colors focus:outline-none shrink-0"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+
+  </div>
+
+  <!-- Mobile Slide-Down Menu Panel -->
+  <div
+    id="mobile-capsule-menu"
+    class="hidden lg:hidden mt-2 max-w-[1340px] mx-auto rounded-3xl bg-white/98 backdrop-blur-2xl border border-slate-200 shadow-2xl p-5 space-y-4 pointer-events-auto"
+  >
+    <nav class="flex flex-col space-y-1 font-bold text-slate-800 text-sm">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class="px-4 py-2.5 rounded-xl hover:bg-slate-100 hover:text-blue-600 flex items-center justify-between transition-colors"
+        >
+          <span>{link.name}</span>
+          <span class="text-slate-400">→</span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
+      <a
+        href="tel:+919845012345"
+        class="w-full py-2.5 rounded-xl bg-slate-100 text-slate-900 font-bold text-center text-xs flex items-center justify-center gap-2"
+      >
+        <span>📞</span>
+        <span>+91 98450 12345 (24/7 Operations Desk)</span>
+      </a>
+      <a
+        href="https://wa.me/919845012345"
+        target="_blank"
+        rel="noopener"
+        class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-center text-xs flex items-center justify-center gap-2 shadow-sm"
+      >
+        <span>💬</span>
+        <span>WhatsApp Concierge</span>
+      </a>
+      <a
+        href="/plan-your-trip"
+        class="w-full py-3 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-950 font-extrabold text-center text-xs uppercase tracking-wider shadow-md"
+      >
+        Plan Your Journey Now →
+      </a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function() {
+    const bar = document.getElementById('capsule-inner-bar');
+    const toggleBtn = document.getElementById('mobile-capsule-toggle');
+    const menu = document.getElementById('mobile-capsule-menu');
+
+    if (toggleBtn && menu) {
+      toggleBtn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+      });
+    }
+
+    // Dynamic Scroll: Turns transparent with subtle backdrop blur when scrolling down
+    function handleScroll() {
+      if (!bar) return;
+      if (window.scrollY > 40) {
+        bar.classList.remove('bg-white/95', 'border-slate-200/90', 'shadow-[0_12px_40px_rgba(0,0,0,0.12)]');
+        bar.classList.add(
+          'bg-white/40',
+          'backdrop-blur-xl',
+          'border-white/40',
+          'shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
+          'hover:bg-white/80'
+        );
+      } else {
+        bar.classList.remove(
+          'bg-white/40',
+          'backdrop-blur-xl',
+          'border-white/40',
+          'shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
+          'hover:bg-white/80'
+        );
+        bar.classList.add('bg-white/95', 'border-slate-200/90', 'shadow-[0_12px_40px_rgba(0,0,0,0.12)]');
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  })();
+</script>

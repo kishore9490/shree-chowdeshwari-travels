@@ -1,0 +1,55 @@
+---
+import type { IDestination } from '../../../shared/types';
+
+interface Props {
+  destination: IDestination;
+}
+
+const { destination } = Astro.props;
+---
+
+<a
+  href={`/destinations/${destination.slug}`}
+  class="group block relative rounded-2xl overflow-hidden bg-[#171717] transition-all duration-700 hover:shadow-editorial-hover"
+>
+  <!-- Full-Bleed Image -->
+  <div class="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden">
+    <img
+      src={destination.heroImage}
+      alt={destination.name}
+      loading="lazy"
+      class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-1000 ease-out"
+    />
+    <!-- Subtle Vignette / Gradient -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+    <!-- Top Badge -->
+    <div class="absolute top-5 left-5">
+      <span class="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/80 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+        {destination.stateOrCountry}
+      </span>
+    </div>
+
+    {destination.startingPrice && (
+      <div class="absolute top-5 right-5">
+        <span class="text-[10px] font-bold text-white bg-white/15 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
+          From {destination.startingPrice}
+        </span>
+      </div>
+    )}
+
+    <!-- Bottom Editorial Content -->
+    <div class="absolute bottom-0 left-0 right-0 p-6 text-white space-y-1.5">
+      <span class="text-[11px] font-editorial italic text-[#D4C39E] block">
+        {destination.tagline}
+      </span>
+      <h3 class="font-serif text-2xl sm:text-3xl text-white font-normal tracking-tight group-hover:translate-x-1 transition-transform duration-300">
+        {destination.name}
+      </h3>
+      <div class="flex items-center gap-2 pt-2 text-xs text-white/70 font-medium group-hover:text-white transition-colors">
+        <span>Explore Circuit</span>
+        <svg class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </div>
+    </div>
+  </div>
+</a>

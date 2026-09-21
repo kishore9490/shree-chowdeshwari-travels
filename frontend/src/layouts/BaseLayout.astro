@@ -1,0 +1,165 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import MobileBottomNav from '../components/MobileBottomNav.astro';
+import BrandPreloader from '../components/BrandPreloader.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalUrl?: string;
+  type?: string;
+  darkNav?: boolean;
+}
+
+const {
+  title = "Shree Chowdeshwari Tours & Travels | Premier Holiday Packages & Luxury Cab Rentals",
+  description = "Bangalore's trusted Tours & Travels operator since 2011. Verified company-owned fleet (Innova Crysta, Fortuner, Force Urbania, Tempo Traveller) with professional chauffeurs for holiday packages and outstation cabs.",
+  image = "/images/og-hero.jpg",
+  canonicalUrl = "https://shreechowdeshwari.com",
+  type = "website",
+  darkNav = false
+} = Astro.props;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "name": "Shree Chowdeshwari Tours and Travels",
+  "image": "https://shreechowdeshwari.com/images/icon-512.svg",
+  "@id": "https://shreechowdeshwari.com",
+  "url": "https://shreechowdeshwari.com",
+  "telephone": "+91-9845012345",
+  "priceRange": "₹₹₹",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "142, Dr. Rajkumar Road, Rajajinagar",
+    "addressLocality": "Bangalore",
+    "addressRegion": "Karnataka",
+    "postalCode": "560010",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 12.9904,
+    "longitude": 77.5529
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  }
+};
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="icon" type="image/svg+xml" href="/images/icon-192.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Shree Chowdeshwari Tours & Travels" />
+
+    <!-- Modern Typography: Plus Jakarta Sans + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <style is:global>
+      :root {
+        --color-primary: #2563EB;
+        --color-accent: #F59E0B;
+        --color-dark: #0F172A;
+      }
+      body {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: #FFFFFF;
+        color: #0F172A;
+        overflow-x: hidden;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #F1F5F9;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #CBD5E1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94A3B8;
+      }
+      /* Modern Card & Motion Utilities */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+      }
+      .glass-dark {
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      /* Keyframe animations for magic vehicles motion */
+      @keyframes floatVehicle {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-6px) rotate(0.5deg); }
+      }
+      @keyframes flightGlide {
+        0% { transform: translate(-100px, 40px) scale(0.8); opacity: 0; }
+        20% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { transform: translate(1200px, -120px) scale(1.1); opacity: 0; }
+      }
+      .animate-float {
+        animation: floatVehicle 4s ease-in-out infinite;
+      }
+      .animate-flight-glide {
+        animation: flightGlide 16s linear infinite;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-[#0F172A] antialiased selection:bg-blue-600 selection:text-white pb-16 lg:pb-0">
+    <BrandPreloader />
+    <Navbar darkNav={darkNav} />
+
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <Footer />
+    <MobileBottomNav />
+
+    <!-- Service Worker for PWA -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>

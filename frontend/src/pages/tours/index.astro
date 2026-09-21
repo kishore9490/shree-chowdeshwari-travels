@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TourCard from '../../components/TourCard.astro';
+import { mockDatabase } from '../../../../backend/src/data/mockDatabase';
+
+const tours = mockDatabase.tours;
+---
+
+<BaseLayout
+  title="Curated Journeys & Bespoke Packages | Shree Chowdeshwari Travels"
+  description="Explore our curated collection of luxury journeys across Karnataka, South India, the Himalayas, and international destinations."
+>
+  <!-- Page Header -->
+  <section class="pt-36 pb-20 bg-[#FAF8F5] border-b border-[#E8E2D6] text-left relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <span class="text-xs uppercase tracking-[0.25em] font-bold text-[#8C733E] block mb-3">
+        The Journey Collection
+      </span>
+      <h1 class="font-serif font-light text-4xl sm:text-6xl text-[#171717] tracking-tight leading-[1.05] mb-6">
+        Curated Private<br /><span class="font-editorial italic">Holiday Journeys</span>
+      </h1>
+      <p class="text-sm sm:text-base text-[#6B7280] max-w-2xl font-light leading-relaxed">
+        Each journey is an all-inclusive private itinerary featuring dedicated sanitized chauffeur transport, luxury handpicked stays, and seamless logistics.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filter & Journey Grid -->
+  <section class="py-16 sm:py-24 bg-[#FAF8F5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <!-- Minimalist Filter Bar -->
+      <div class="mb-14 flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#E8E2D6]">
+        <div class="flex flex-wrap items-center gap-2" id="tour-category-filters">
+          <button class="filter-btn active px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-[#171717] text-white transition-all" data-category="ALL">
+            All Journeys ({tours.length})
+          </button>
+          <button class="filter-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-white text-[#6B7280] hover:text-[#171717] border border-[#E8E2D6] transition-all" data-category="FAMILY">
+            Family
+          </button>
+          <button class="filter-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-white text-[#6B7280] hover:text-[#171717] border border-[#E8E2D6] transition-all" data-category="HONEYMOON">
+            Honeymoon
+          </button>
+          <button class="filter-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-white text-[#6B7280] hover:text-[#171717] border border-[#E8E2D6] transition-all" data-category="LUXURY">
+            Luxury
+          </button>
+          <button class="filter-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-white text-[#6B7280] hover:text-[#171717] border border-[#E8E2D6] transition-all" data-category="PILGRIMAGE">
+            Heritage Circuit
+          </button>
+          <button class="filter-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-white text-[#6B7280] hover:text-[#171717] border border-[#E8E2D6] transition-all" data-category="INTERNATIONAL">
+            International
+          </button>
+        </div>
+
+        <a
+          href="/plan-your-trip"
+          class="text-xs uppercase tracking-wider font-semibold text-[#8C733E] hover:underline underline-offset-4 flex items-center gap-1"
+        >
+          <span>Design custom itinerary &rarr;</span>
+        </a>
+      </div>
+
+      <!-- Journeys Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10" id="tours-grid">
+        {tours.map(tour => (
+          <div class="tour-item" data-category={tour.tourType}>
+            <TourCard tour={tour} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const tourItems = document.querySelectorAll('.tour-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-[#171717]', 'text-white');
+          b.classList.add('bg-white', 'text-[#6B7280]', 'border', 'border-[#E8E2D6]');
+        });
+        btn.classList.remove('bg-white', 'text-[#6B7280]', 'border', 'border-[#E8E2D6]');
+        btn.classList.add('bg-[#171717]', 'text-white');
+
+        const category = btn.getAttribute('data-category');
+
+        tourItems.forEach(item => {
+          const itemCategory = item.getAttribute('data-category');
+          if (category === 'ALL' || itemCategory === category) {
+            (item as HTMLElement).style.display = 'block';
+          } else {
+            (item as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</BaseLayout>

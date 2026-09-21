@@ -1,0 +1,271 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { mockDatabase } from '../../../../backend/src/data/mockDatabase';
+
+export function getStaticPaths() {
+  return mockDatabase.tours.map(tour => ({
+    params: { slug: tour.slug },
+    props: { tour }
+  }));
+}
+
+const { tour } = Astro.props;
+
+const formattedPrice = new Intl.NumberFormat('en-IN', {
+  style: 'currency',
+  currency: 'INR',
+  maximumFractionDigits: 0
+}).format(tour.startingPrice);
+---
+
+<BaseLayout
+  title={`${tour.title} | Shree Chowdeshwari Travels`}
+  description={tour.overview}
+  image={tour.heroImage}
+>
+  <!-- Full Bleed Tour Hero -->
+  <section class="relative h-[75vh] min-h-[520px] flex items-end pb-16 overflow-hidden bg-[#0D0D0D]">
+    <img
+      src={tour.heroImage}
+      alt={tour.title}
+      class="absolute inset-0 w-full h-full object-cover object-center opacity-90"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-black/30 to-black/40"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 w-full text-white space-y-4">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="text-[10px] uppercase tracking-[0.25em] font-medium text-[#E5DFC5] bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
+          {tour.tourType} Collection
+        </span>
+        <span class="text-[10px] uppercase tracking-[0.25em] font-medium text-white/90 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
+          {tour.durationDays} Days / {tour.durationNights} Nights
+        </span>
+        <span class="text-xs text-[#D4C39E]">
+          ★ {tour.rating} ({tour.reviewsCount} reviews)
+        </span>
+      </div>
+
+      <h1 class="font-serif font-light text-4xl sm:text-6xl lg:text-7xl text-white tracking-tight leading-[1.05] max-w-4xl">
+        {tour.title}
+      </h1>
+
+      <p class="text-xs sm:text-sm text-white/80 font-light flex items-center gap-2">
+        <span>📍 {tour.destinationName}</span>
+        <span>&bull;</span>
+        <span>Max {tour.maxTravellers} Guests</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Tour Itinerary & Reservation Sidebar -->
+  <section class="py-20 sm:py-28 bg-[#FAF8F5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <!-- Left: Overview, Day by Day Itinerary, Inclusions -->
+        <div class="lg:col-span-8 space-y-16">
+          <!-- Overview -->
+          <div class="space-y-4 pb-12 border-b border-[#E8E2D6]">
+            <span class="text-xs uppercase tracking-[0.25em] font-bold text-[#8C733E] block">
+              Journey Overview
+            </span>
+            <p class="font-editorial italic text-2xl sm:text-3xl text-[#171717] leading-relaxed">
+              "{tour.overview}"
+            </p>
+          </div>
+
+          <!-- Day by Day Itinerary -->
+          <div class="space-y-8">
+            <div class="flex items-center justify-between pb-4 border-b border-[#E8E2D6]">
+              <h2 class="font-serif font-light text-3xl text-[#171717]">
+                Day-by-Day Itinerary
+              </h2>
+              <span class="text-xs text-[#6B7280] font-light">{tour.itinerary.length} Days</span>
+            </div>
+
+            <div class="space-y-6">
+              {tour.itinerary.map(dayPlan => (
+                <div class="p-8 rounded-3xl bg-white border border-[#E8E2D6] shadow-subtle space-y-4">
+                  <div class="flex items-start gap-4">
+                    <span class="font-serif font-light text-3xl text-[#B89B5E] block shrink-0 leading-none">
+                      0{dayPlan.day}
+                    </span>
+                    <div class="space-y-2">
+                      <h3 class="font-serif text-xl sm:text-2xl text-[#171717] font-normal">
+                        {dayPlan.title}
+                      </h3>
+                      <p class="text-xs sm:text-sm text-[#6B7280] font-light leading-relaxed">
+                        {dayPlan.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Activities & Stay -->
+                  {dayPlan.activities && (
+                    <div class="pt-4 border-t border-[#F6F2EA] flex flex-wrap gap-2">
+                      {dayPlan.activities.map(act => (
+                        <span class="text-[11px] text-[#4B5563] bg-[#FAF8F5] px-3 py-1 rounded-full border border-[#E8E2D6]">
+                          {act}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div class="pt-3 border-t border-[#F6F2EA] flex flex-wrap gap-6 text-xs text-[#6B7280] font-light">
+                    {dayPlan.stay && <span>Stay: <strong class="text-[#171717] font-medium">{dayPlan.stay}</strong></span>}
+                    {dayPlan.meals && <span>Meals: <strong class="text-[#171717] font-medium">{dayPlan.meals}</strong></span>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Inclusions & Exclusions -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
+            <div class="p-8 rounded-3xl bg-white border border-[#E8E2D6] shadow-subtle space-y-4">
+              <span class="text-[10px] uppercase tracking-[0.2em] text-[#2C3E2D] font-bold block">
+                Included in Journey
+              </span>
+              <ul class="space-y-2.5 text-xs text-[#4B5563]">
+                {tour.inclusions.map(inc => (
+                  <li class="flex items-start gap-2">
+                    <span class="text-[#B89B5E] text-sm">&bull;</span>
+                    <span class="leading-relaxed font-light">{inc}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="p-8 rounded-3xl bg-white border border-[#E8E2D6] shadow-subtle space-y-4">
+              <span class="text-[10px] uppercase tracking-[0.2em] text-[#9CA3AF] font-bold block">
+                Not Included
+              </span>
+              <ul class="space-y-2.5 text-xs text-[#6B7280]">
+                {tour.exclusions.map(exc => (
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 text-sm">&bull;</span>
+                    <span class="leading-relaxed font-light">{exc}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Floating Reservation Form -->
+        <div class="lg:col-span-4 sticky top-28">
+          <div class="p-8 rounded-3xl bg-white border border-[#E8E2D6] shadow-editorial space-y-6">
+            <div class="border-b border-[#F6F2EA] pb-5">
+              <span class="text-[10px] uppercase tracking-[0.2em] text-[#9CA3AF] font-bold block">All-Inclusive Starting Price</span>
+              <span class="font-serif text-3xl sm:text-4xl text-[#171717] font-light block mt-1">{formattedPrice}</span>
+              <span class="text-[11px] text-[#2C3E2D] font-medium block mt-1">✓ 25% Token Advance to reserve dates</span>
+            </div>
+
+            <form id="tour-book-form" class="space-y-4">
+              <input type="hidden" name="tourTitle" value={tour.title} />
+              <input type="hidden" name="destinationName" value={tour.destinationName} />
+              <input type="hidden" name="netAmount" value={tour.startingPrice} />
+
+              <div>
+                <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Full Name</label>
+                <input
+                  type="text"
+                  name="customerName"
+                  required
+                  placeholder="e.g. Rameshwar Rao"
+                  class="w-full bg-[#FAF8F5] text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+                />
+              </div>
+
+              <div>
+                <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Mobile / WhatsApp</label>
+                <input
+                  type="tel"
+                  name="customerPhone"
+                  required
+                  placeholder="+91 98450 12345"
+                  class="w-full bg-[#FAF8F5] text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+                />
+              </div>
+
+              <div>
+                <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Travel Date</label>
+                <input
+                  type="date"
+                  name="travelStartDate"
+                  required
+                  class="w-full bg-[#FAF8F5] text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+                />
+              </div>
+
+              <div>
+                <label class="block text-[10px] uppercase tracking-[0.15em] text-[#6B7280] font-semibold mb-1">Guests</label>
+                <select
+                  name="guestsCount"
+                  class="w-full bg-[#FAF8F5] text-sm text-[#171717] border border-[#E8E2D6] rounded-xl px-4 py-3 focus:outline-none focus:border-[#171717]"
+                >
+                  <option value="2">2 Guests (Couple)</option>
+                  <option value="4">4 Guests (Family)</option>
+                  <option value="6">6 Guests (Group)</option>
+                  <option value="12">12+ Guests</option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                id="tour-book-btn"
+                class="w-full py-4 rounded-full bg-[#171717] hover:bg-[#2E2E2E] text-white text-xs uppercase tracking-[0.18em] font-semibold transition-all shadow-lg"
+              >
+                Reserve Journey
+              </button>
+
+              <a
+                href={`https://wa.me/919845012345?text=Hello%20Shree%20Chowdeshwari%20Travels,%20I%20am%20interested%20in%20${encodeURIComponent(tour.title)}`}
+                target="_blank"
+                rel="noopener"
+                class="w-full py-3 block text-center rounded-full border border-[#E8E2D6] hover:border-[#171717] text-xs uppercase tracking-[0.15em] text-[#171717] font-semibold transition-all"
+              >
+                Inquire on WhatsApp
+              </a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const bForm = document.getElementById('tour-book-form') as HTMLFormElement;
+    const bBtn = document.getElementById('tour-book-btn');
+
+    if (bForm) {
+      bForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (bBtn) bBtn.textContent = 'Reserving...';
+
+        const formData = new FormData(bForm);
+        const bookingRef = `SCT-2026-${Math.floor(100000 + Math.random() * 900000)}`;
+
+        const payload = {
+          tourTitle: formData.get('tourTitle'),
+          destinationName: formData.get('destinationName'),
+          customerName: formData.get('customerName'),
+          customerPhone: formData.get('customerPhone'),
+          travelStartDate: formData.get('travelStartDate'),
+          guestsCount: formData.get('guestsCount'),
+          netAmount: formData.get('netAmount'),
+          bookingReference: bookingRef
+        };
+
+        try {
+          await fetch('http://localhost:4000/api/bookings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } catch {}
+
+        window.location.href = `/booking-confirmation?ref=${bookingRef}&name=${encodeURIComponent(payload.customerName as string)}&tour=${encodeURIComponent(payload.tourTitle as string)}&date=${encodeURIComponent(payload.travelStartDate as string)}&guests=${payload.guestsCount}`;
+      });
+    }
+  </script>
+</BaseLayout>

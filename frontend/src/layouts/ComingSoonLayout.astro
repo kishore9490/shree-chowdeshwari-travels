@@ -1,0 +1,218 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title = "Shree Chowdeshwari Tours & Travels | Official Launch 29 September 2026",
+  description = "Something extraordinary is about to begin. Shree Chowdeshwari Tours & Travels launches on 29 September 2026. Bespoke luxury holidays, sacred pilgrimages, and royal fleet journeys.",
+  image = "/images/sct-logo-transparent.png",
+  canonicalUrl = "https://shreechowdeshwari.com",
+} = Astro.props;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "name": "Shree Chowdeshwari Tours & Travels",
+  "image": "https://shreechowdeshwari.com/images/sct-logo-transparent.png",
+  "@id": "https://shreechowdeshwari.com",
+  "url": "https://shreechowdeshwari.com",
+  "description": description,
+  "telephone": "+91-9845012345",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Bangalore",
+    "addressLocality": "Bangalore",
+    "addressRegion": "Karnataka",
+    "addressCountry": "IN"
+  }
+};
+---
+
+<!doctype html>
+<html lang="en" class="h-full scroll-smooth bg-[#050811] text-[#F8FAFC] antialiased selection:bg-[#F59E0B]/30 selection:text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/png" href="/images/sct-logo-transparent.png" />
+    <link rel="apple-touch-icon" href="/images/sct-logo-transparent.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#050811" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Shree Chowdeshwari Tours & Travels" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- OpenGraph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Shree Chowdeshwari Tours & Travels" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Modern Typography: Plus Jakarta Sans + Outfit + Cormorant + Alex Brush -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <style is:global>
+      :root {
+        --color-bg: #050811;
+        --color-surface: #0B1120;
+        --color-gold: #F59E0B;
+        --color-gold-light: #FDE68A;
+        --color-gold-glow: rgba(245, 158, 11, 0.25);
+        --color-blue-glow: rgba(37, 99, 235, 0.25);
+      }
+
+      html, body {
+        background-color: #050811;
+        color: #F8FAFC;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        overflow-x: hidden;
+        min-height: 100%;
+        min-height: 100svh;
+      }
+
+      /* Font Family Classes */
+      .font-heading {
+        font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+      }
+      .font-cinzel {
+        font-family: 'Cinzel', serif;
+      }
+      .font-signature {
+        font-family: 'Alex Brush', cursive;
+      }
+      .font-editorial {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+      }
+      .font-mono-tech {
+        font-family: 'Space Grotesk', ui-monospace, monospace;
+      }
+
+      /* Modern 2026 Glassmorphism */
+      .glass-panel {
+        background: rgba(11, 17, 32, 0.7);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .glass-gold-panel {
+        background: linear-gradient(135deg, rgba(20, 28, 48, 0.8) 0%, rgba(11, 17, 32, 0.9) 100%);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(245, 158, 11, 0.25);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(245, 158, 11, 0.08), inset 0 1px 0 rgba(253, 230, 138, 0.2);
+      }
+
+      .glass-pill {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Metallic & Gold Gradient Text */
+      .text-gradient-gold {
+        background: linear-gradient(135deg, #FFFFFF 0%, #FDE68A 30%, #F59E0B 70%, #D97706 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .text-gradient-silver {
+        background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 50%, #94A3B8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Aurora background animation */
+      @keyframes auroraGlow {
+        0%, 100% { transform: scale(1) translate(0px, 0px); opacity: 0.4; }
+        50% { transform: scale(1.15) translate(30px, -20px); opacity: 0.65; }
+      }
+      .animate-aurora {
+        animation: auroraGlow 12s ease-in-out infinite alternate;
+      }
+
+      /* Subtle floating glow */
+      @keyframes floatSoft {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+      }
+      .animate-float-soft {
+        animation: floatSoft 6s ease-in-out infinite;
+      }
+
+      /* Safe area insets */
+      .safe-top {
+        padding-top: max(1rem, env(safe-area-inset-top));
+      }
+      .safe-bottom {
+        padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050811;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1E293B;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #334155;
+      }
+    </style>
+  </head>
+  <body class="relative min-h-screen flex flex-col justify-between overflow-x-hidden">
+    <!-- Ambient Aurora Glows -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div class="absolute -top-[20%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-gradient-to-b from-blue-600/20 via-amber-500/10 to-transparent rounded-full blur-[140px] animate-aurora"></div>
+      <div class="absolute top-1/2 -left-[10%] w-[500px] h-[500px] bg-indigo-600/15 rounded-full blur-[130px]"></div>
+      <div class="absolute bottom-0 right-[5%] w-[600px] h-[400px] bg-amber-600/15 rounded-full blur-[150px]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
+    </div>
+
+    <!-- Main Content Slot -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+      <slot />
+    </div>
+
+    <!-- Service Worker for PWA -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="navyBg192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A1128"/>
+      <stop offset="100%" stop-color="#060B18"/>
+    </linearGradient>
+    <linearGradient id="goldRing192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#9E7E50"/>
+    </linearGradient>
+  </defs>
+  <circle cx="96" cy="96" r="92" fill="url(#navyBg192)" stroke="url(#goldRing192)" stroke-width="6"/>
+  <circle cx="96" cy="96" r="82" fill="none" stroke="url(#goldRing192)" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
+  <path d="M96 45 L106 65 L128 70 L111 86 L117 110 L96 98 L75 110 L81 86 L64 70 L86 65 Z" fill="url(#goldRing192)"/>
+  <text x="96" y="142" font-family="'Playfair Display', Georgia, serif" font-size="28" font-weight="bold" fill="url(#goldRing192)" text-anchor="middle" letter-spacing="2">SCT</text>
+  <text x="96" y="162" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="600" fill="#E8D5BA" text-anchor="middle" letter-spacing="2">CHOWDESHWARI</text>
+</svg>

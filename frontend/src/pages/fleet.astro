@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { mockDatabase } from '../../../backend/src/data/mockDatabase';
+
+const vehicles = mockDatabase.vehicles;
+const drivers = mockDatabase.drivers;
+---
+
+<BaseLayout
+  title="Private Chauffeured Fleet &amp; Chauffeurs | Shree Chowdeshwari Travels"
+  description="Discover our 100% company-owned luxury fleet. Toyota Innova Crystas, Fortuners, Force Urbanias, and Luxury Coaches maintained to impeccable safety standards."
+>
+  <!-- Page Header -->
+  <section class="pt-36 pb-20 bg-[#FAF8F5] border-b border-[#E8E2D6] text-left">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <span class="text-xs uppercase tracking-[0.25em] font-bold text-[#8C733E] block mb-3">
+        Private Mobility Portfolio
+      </span>
+      <h1 class="font-serif font-light text-4xl sm:text-6xl text-[#171717] tracking-tight leading-[1.05] mb-6">
+        Verified Fleet &amp;<br /><span class="font-editorial italic">Master Chauffeurs</span>
+      </h1>
+      <p class="text-sm sm:text-base text-[#6B7280] max-w-2xl font-light leading-relaxed">
+        Zero third-party aggregators. Every vehicle is company-owned, rigorously sanitized, GPS-monitored, and operated by background-verified licensed chauffeurs.
+      </p>
+    </div>
+  </section>
+
+  <!-- Vehicles List -->
+  <section class="py-20 sm:py-28 bg-[#FAF8F5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 space-y-12">
+      {vehicles.map(v => (
+        <div class="p-8 sm:p-12 rounded-3xl bg-white border border-[#E8E2D6] shadow-subtle hover:shadow-editorial-hover transition-all duration-700 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-4 space-y-3">
+            <span class="text-[10px] uppercase tracking-[0.2em] text-[#8C733E] font-bold block">
+              {v.vehicleType}
+            </span>
+            <h3 class="font-serif text-2xl sm:text-3xl text-[#171717] font-normal">
+              {v.make} {v.model}
+            </h3>
+            <p class="text-xs text-[#6B7280] font-light">
+              Registration: <span class="font-mono text-[#171717]">{v.registrationNumber}</span>
+            </p>
+            <div class="pt-2 flex items-center gap-4 text-xs text-[#4B5563]">
+              <span>👥 {v.seatingCapacity} Passengers</span>
+              <span>&bull;</span>
+              <span>⚡ {v.fuelType}</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 p-6 rounded-2xl bg-[#FAF8F5] border border-[#E8E2D6] space-y-2 text-xs">
+            <span class="text-[10px] uppercase tracking-wider text-[#171717] font-bold block mb-2">Compliance &amp; RTO Verification</span>
+            <div class="flex justify-between text-[#6B7280]">
+              <span>Commercial Insurance:</span>
+              <strong class="text-[#2C3E2D]">{v.insuranceExpiry} (Active)</strong>
+            </div>
+            <div class="flex justify-between text-[#6B7280]">
+              <span>Emission (PUC):</span>
+              <strong class="text-[#2C3E2D]">{v.pucExpiry} (Verified)</strong>
+            </div>
+            <div class="flex justify-between text-[#6B7280]">
+              <span>Primary Chauffeur:</span>
+              <strong class="text-[#171717]">{v.assignedDriver}</strong>
+            </div>
+          </div>
+
+          <div class="lg:col-span-3 flex flex-col gap-3">
+            <a
+              href="/plan-your-trip"
+              class="w-full py-3.5 rounded-full bg-[#171717] hover:bg-[#2E2E2E] text-white text-xs font-semibold uppercase tracking-[0.15em] text-center transition-all shadow-md"
+            >
+              Hire Vehicle
+            </a>
+            <a
+              href="https://wa.me/919845012345"
+              target="_blank"
+              rel="noopener"
+              class="w-full py-3 rounded-full border border-[#E8E2D6] hover:border-[#171717] text-xs font-semibold uppercase tracking-[0.15em] text-[#171717] text-center transition-all"
+            >
+              WhatsApp Rates
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Chauffeur Profiles -->
+  <section class="py-20 sm:py-28 bg-[#F6F2EA] border-t border-[#E8E2D6]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div class="max-w-xl mb-14">
+        <span class="text-xs uppercase tracking-[0.25em] font-bold text-[#8C733E] block mb-2">
+          On-Road Guardians
+        </span>
+        <h2 class="font-serif font-light text-3xl sm:text-4xl text-[#171717]">
+          Meet Our Master Chauffeurs
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {drivers.map(drv => (
+          <div class="p-6 rounded-3xl bg-white border border-[#E8E2D6] shadow-subtle text-center flex flex-col items-center space-y-3">
+            <img
+              src={drv.photoUrl}
+              alt={drv.fullName}
+              class="w-20 h-20 rounded-full object-cover border-2 border-[#E8E2D6]"
+            />
+            <h4 class="font-serif text-lg text-[#171717] font-normal">{drv.fullName}</h4>
+            <span class="text-xs text-[#8C733E] font-medium">{drv.experienceYears}+ Years Outstation Mastery</span>
+            <span class="text-[10px] text-[#2C3E2D] font-semibold bg-[#2C3E2D]/10 px-3 py-1 rounded-full">
+              ✓ Police &amp; Background Verified
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
