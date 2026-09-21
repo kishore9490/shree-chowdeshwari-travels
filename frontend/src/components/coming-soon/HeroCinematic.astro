@@ -1,18 +1,17 @@
 ---
-// HeroCinematic.astro - Ultra-Modern 2026 Luxury Coming Soon Stage
+// HeroCinematic.astro - Clean 100% Mobile Responsive 2026 Coming Soon
 import LiveCountdown from './LiveCountdown.astro';
 import DestinationCrossfade from './DestinationCrossfade.astro';
 import NotifyModal from './NotifyModal.astro';
 import CuriousHintModal from './CuriousHintModal.astro';
 ---
 
-<section class="relative min-h-[calc(100svh-110px)] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 text-center overflow-hidden">
-  <!-- Dynamic Ambient Backdrop with Modern Radial Spotlights -->
+<section class="relative min-h-[calc(100svh-100px)] flex flex-col items-center justify-center px-3.5 xs:px-4 sm:px-6 lg:px-8 py-6 sm:py-10 text-center overflow-hidden">
+  <!-- Dynamic Ambient Backdrop -->
   <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
-    <!-- Travel Photography Ambient Texture -->
     <div
       id="hero-bg-image"
-      class="absolute inset-0 bg-cover bg-center opacity-25 scale-105 transition-transform duration-[3000ms] ease-out will-change-transform"
+      class="absolute inset-0 bg-cover bg-center opacity-20 scale-105 transition-transform duration-[3000ms] ease-out will-change-transform"
       style="background-image: url('https://images.unsplash.com/photo-1506461883276-594a12b11cf3?q=80&w=2600&auto=format&fit=crop');"
     >
     </div>
@@ -20,16 +19,16 @@ import CuriousHintModal from './CuriousHintModal.astro';
   </div>
 
   <!-- Main Hero Stage -->
-  <div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center">
+  <div class="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center justify-center">
 
     <!-- 1. Eyebrow Badge -->
     <div
       id="reveal-eyebrow"
-      class="opacity-0 transform translate-y-4 transition-all duration-700 ease-out mb-5 sm:mb-6"
+      class="opacity-0 transform translate-y-4 transition-all duration-700 ease-out mb-3.5 sm:mb-5"
     >
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.05] border border-white/15 backdrop-blur-xl shadow-lg">
-        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-        <span class="text-[10px] sm:text-xs font-mono-tech uppercase tracking-[0.25em] text-slate-300 font-medium">
+      <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/[0.05] border border-white/15 backdrop-blur-xl shadow-md">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+        <span class="text-[9px] xs:text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-slate-300 font-medium">
           A New Journey Is About To Begin
         </span>
       </div>
@@ -38,81 +37,78 @@ import CuriousHintModal from './CuriousHintModal.astro';
     <!-- 2. Official Brand Insignia Centerpiece -->
     <div
       id="reveal-logo"
-      class="opacity-0 transform translate-y-6 transition-all duration-700 ease-out delay-150 mb-6 sm:mb-8 flex flex-col items-center"
+      class="opacity-0 transform translate-y-6 transition-all duration-700 ease-out delay-150 mb-4 sm:mb-6 flex flex-col items-center w-full"
     >
       <div class="relative group">
-        <!-- Radial Golden Glow Backlight -->
-        <div class="absolute -inset-4 bg-gradient-to-r from-amber-500/30 via-blue-600/30 to-amber-300/30 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-700"></div>
-        
-        <!-- Logo Card Container (White Crystal Surface for pristine contrast) -->
-        <div class="relative max-w-[280px] sm:max-w-[360px] md:max-w-[420px] p-3 sm:p-4 rounded-3xl bg-white/95 border border-amber-300/50 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(245,158,11,0.2)] backdrop-blur-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+        <div class="absolute -inset-3 bg-gradient-to-r from-amber-500/30 via-blue-600/30 to-amber-300/30 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-700"></div>
+        <div class="relative w-[230px] xs:w-[270px] sm:w-[340px] md:w-[400px] p-2.5 xs:p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 border border-amber-300/50 shadow-2xl backdrop-blur-2xl transition-transform duration-500 group-hover:scale-[1.02]">
           <img
             src="/images/sct-logo-transparent.png"
             alt="Shree Chowdeshwari Tours & Travels Official Logo"
-            class="w-full h-auto object-contain max-h-[160px] sm:max-h-[210px]"
+            class="w-full h-auto object-contain max-h-[120px] xs:max-h-[145px] sm:max-h-[190px]"
             onerror="this.src='/sct-logo.jpg'"
           />
         </div>
       </div>
 
       <!-- Signature Script Line -->
-      <div class="mt-4 flex items-center justify-center gap-3">
-        <span class="w-8 sm:w-16 h-[1px] bg-gradient-to-r from-transparent to-amber-400"></span>
-        <p class="font-signature text-2xl sm:text-3xl md:text-4xl text-amber-300 tracking-wide drop-shadow-[0_2px_12px_rgba(245,158,11,0.5)]">
+      <div class="mt-2.5 sm:mt-3.5 flex items-center justify-center gap-2 sm:gap-3 max-w-full px-2">
+        <span class="w-6 sm:w-14 h-[1px] bg-gradient-to-r from-transparent to-amber-400 shrink-0"></span>
+        <p class="font-signature text-xl xs:text-2xl sm:text-3xl md:text-4xl text-amber-300 tracking-wide drop-shadow-[0_2px_10px_rgba(245,158,11,0.5)] truncate">
           Journeys with Divine Blessings
         </p>
-        <span class="w-8 sm:w-16 h-[1px] bg-gradient-to-l from-transparent to-amber-400"></span>
+        <span class="w-6 sm:w-14 h-[1px] bg-gradient-to-l from-transparent to-amber-400 shrink-0"></span>
       </div>
     </div>
 
     <!-- 3. Four Core Pillars -->
     <div
       id="reveal-pillars"
-      class="opacity-0 transform translate-y-4 transition-all duration-700 ease-out delay-300 flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6"
+      class="opacity-0 transform translate-y-4 transition-all duration-700 ease-out delay-300 flex flex-wrap items-center justify-center gap-1.5 xs:gap-2 sm:gap-3 mb-4 sm:mb-5 max-w-full px-1"
     >
-      <span class="px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] sm:text-xs font-mono-tech tracking-widest text-slate-300 uppercase">
+      <span class="px-2.5 xs:px-3 py-0.5 sm:py-1 rounded-full bg-white/[0.04] border border-white/10 text-[9px] xs:text-[10px] sm:text-xs font-mono tracking-wider text-slate-300 uppercase">
         <strong class="text-amber-400 font-normal">✦</strong> EXPLORE
       </span>
-      <span class="px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] sm:text-xs font-mono-tech tracking-widest text-slate-300 uppercase">
+      <span class="px-2.5 xs:px-3 py-0.5 sm:py-1 rounded-full bg-white/[0.04] border border-white/10 text-[9px] xs:text-[10px] sm:text-xs font-mono tracking-wider text-slate-300 uppercase">
         <strong class="text-amber-400 font-normal">✦</strong> EXPERIENCE
       </span>
-      <span class="px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] sm:text-xs font-mono-tech tracking-widest text-slate-300 uppercase">
+      <span class="px-2.5 xs:px-3 py-0.5 sm:py-1 rounded-full bg-white/[0.04] border border-white/10 text-[9px] xs:text-[10px] sm:text-xs font-mono tracking-wider text-slate-300 uppercase">
         <strong class="text-amber-400 font-normal">✦</strong> ENJOY
       </span>
-      <span class="px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] sm:text-xs font-mono-tech tracking-widest text-slate-300 uppercase">
+      <span class="px-2.5 xs:px-3 py-0.5 sm:py-1 rounded-full bg-white/[0.04] border border-white/10 text-[9px] xs:text-[10px] sm:text-xs font-mono tracking-wider text-slate-300 uppercase">
         <strong class="text-amber-400 font-normal">✦</strong> TOGETHER
       </span>
     </div>
 
-    <!-- 4. Modern Editorial Headline -->
+    <!-- 4. Responsive Headline -->
     <div
       id="reveal-headline"
-      class="opacity-0 transform translate-y-6 transition-all duration-700 ease-out delay-400 mb-6 space-y-3"
+      class="opacity-0 transform translate-y-6 transition-all duration-700 ease-out delay-400 mb-4 sm:mb-6 space-y-2 sm:space-y-3 px-2"
     >
-      <h1 class="font-heading text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
-        YOUR NEXT EXTRAORDINARY <br class="hidden sm:inline" />
+      <h1 class="font-heading text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+        YOUR NEXT EXTRAORDINARY <br class="hidden xs:inline" />
         <span class="text-gradient-gold">JOURNEY STARTS HERE.</span>
       </h1>
-      <p class="font-sans text-sm sm:text-lg text-slate-300 font-normal max-w-2xl mx-auto leading-relaxed">
-        "Something extraordinary is almost ready. Curating unforgettable luxury holidays, sacred temple tours, and premium fleet odysseys across India & the World."
+      <p class="font-sans text-xs xs:text-sm sm:text-base text-slate-300 font-normal max-w-xl mx-auto leading-relaxed">
+        Curating bespoke luxury holidays, sacred temple pilgrimages, and royal fleet odysseys across India & the World.
       </p>
     </div>
 
-    <!-- 5. Official Launch Date Announcement -->
+    <!-- 5. Official Launch Announcement -->
     <div
       id="reveal-date"
-      class="opacity-0 transform translate-y-4 transition-all duration-700 ease-out delay-500 mb-6 sm:mb-8"
+      class="opacity-0 transform translate-y-4 transition-all duration-700 ease-out delay-500 mb-4 sm:mb-6"
     >
-      <div class="inline-flex items-center gap-3 px-6 py-2 rounded-full glass-gold-panel shadow-xl">
-        <span class="text-[10px] sm:text-xs font-mono-tech uppercase tracking-[0.25em] text-slate-400">LAUNCHING</span>
+      <div class="inline-flex items-center gap-2 xs:gap-3 px-4 xs:px-5 sm:px-6 py-1.5 sm:py-2 rounded-full glass-gold-panel shadow-lg">
+        <span class="text-[9px] xs:text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-slate-400">LAUNCHING</span>
         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-        <span class="font-heading text-xs sm:text-sm font-bold tracking-[0.2em] text-white">
+        <span class="font-heading text-[11px] xs:text-xs sm:text-sm font-bold tracking-[0.18em] text-white">
           29 SEPTEMBER 2026
         </span>
       </div>
     </div>
 
-    <!-- 6. Modern Live Real-time Countdown -->
+    <!-- 6. Responsive Live Countdown -->
     <div
       id="reveal-countdown"
       class="opacity-0 transform translate-y-4 transition-all duration-700 ease-out delay-600 w-full"
@@ -128,13 +124,13 @@ import CuriousHintModal from './CuriousHintModal.astro';
       <DestinationCrossfade />
     </div>
 
-    <!-- 8. VIP CTA and Mystery Button -->
+    <!-- 8. Mobile Touch Friendly CTA and Mystery Hint -->
     <div
       id="reveal-cta"
-      class="opacity-0 transform translate-y-4 transition-all duration-700 ease-out delay-800 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-3"
+      class="opacity-0 transform translate-y-4 transition-all duration-700 ease-out delay-800 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 mt-2 sm:mt-4 w-full px-2"
     >
       <NotifyModal />
-      <div class="mt-2 sm:mt-4">
+      <div class="mt-1 sm:mt-0">
         <CuriousHintModal />
       </div>
     </div>
@@ -170,7 +166,7 @@ import CuriousHintModal from './CuriousHintModal.astro';
         setTimeout(() => {
           el.classList.remove('opacity-0', 'translate-y-4', 'translate-y-6');
           el.classList.add('opacity-100', 'translate-y-0');
-        }, 150 + (idx * 150));
+        }, 120 + (idx * 120));
       }
     });
   });
